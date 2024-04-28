@@ -1,0 +1,42 @@
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.navbar-search {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white; /* Ajusta el color de fondo según tu diseño */
+  border: 1px solid black; /* Añade un borde para delimitar el submenú */
+  padding: 10px; /* Ajusta el espaciado interno del submenú */
+}
+
+.nav-submenu li {
+  margin-right: 10px; /* Espacio entre los elementos del submenú */
+}
