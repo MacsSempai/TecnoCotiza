@@ -3,15 +3,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 
 # Esquema para los datos
-schema = {
-    "type": "object",
-    "properties": {
-        "name": {"type": "string"},
-        "age": {"type": "integer"},
-        "city": {"type": "string"}
-    },
-    "required": ["name", "age", "city"]
-}
+
 cotizaciones = {
     "type": "object",
     "properties": {
@@ -99,7 +91,26 @@ tienda = {
     "required": [ "nombre", "sitioWeb"]  
 }
 
+historialPrecio ={
+    "type": "object",
+    "properties": {
+        "productoId":{"type": "ObjectId"},
+        "historia": {
+            "type":"array",
+            "items":{
+                "type":"object",
+                "properties":{
+                    "precio": {"type": "number"},
+                    "fecha": {"type": "string", "format": "date"}
+                },
+                "required": [ "precio", "fecha"]
+            }
+        }
 
+    },
+    "required": [ "productoId","historial"]
+    
+}
 
 # Función para insertar datos en MongoDB
 def insertar_datos(datos):
@@ -108,8 +119,6 @@ def insertar_datos(datos):
         jsonschema.validate(instance=datos, schema=usuario)
         # Conectar a la base de datos
         client = MongoClient('mongodb://localhost:27017/')
-        # db = client['mi_base_de_datos']
-        # coleccion = db['mi_coleccion']
         database = client['PruebaMongoDB_!']
         coleccion = database['usuarios']
         # Insertar los datos en la colección
@@ -122,8 +131,8 @@ def insertar_datos(datos):
 
 # Ejemplo de datos para insertar
 datos_validos = {
-    "nombre": "Juan",
-    "email": "juan@example.com",
+    "nombre": "Pedro",
+    "email": "perdro@gmail.com",
     "password": "password123",
     "favoritos": ["662a5d9e98aa86df610b75ea"]
 }
