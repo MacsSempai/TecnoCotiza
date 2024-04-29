@@ -53,7 +53,7 @@ datos_validos =  {
     "nombre": "NombreUsuario",
     "email":"usuario@gmail.com",
     "password": "Contraseña",
-    "favoritos": ["66300c12adfe261adbdcf4b2"]
+    "favoritos": ["662e8e3587af0b0914a3f8e3"]
 }
 
 # Intentar insertar los datos
