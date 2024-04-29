@@ -2,7 +2,7 @@ import jsonschema
 from pymongo import MongoClient
 
 #==========================================================================================
-#======AGREGAR DATOS A COLECCION TIENDA
+#======AGREGAR DATOS A COLECCION usuarios
 #==========================================================================================
 
 #Campos y tipos de datos a necesitar en la Coleecion usuarios

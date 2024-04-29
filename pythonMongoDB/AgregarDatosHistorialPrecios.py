@@ -2,47 +2,43 @@ import jsonschema
 from pymongo import MongoClient
 
 #==========================================================================================
-#======AGREGAR DATOS A COLECCION cotizaciones
+#======AGREGAR DATOS A COLECCION historialPrecios
 #==========================================================================================
 
-#Campos y tipos de datos a necesitar en la Colecion cotizaciones
-cotizaciones = {
+#Campos y tipos de datos a necesitar en la Colecion historialPrecios
+
+historialPrecio ={
     "type": "object",
     "properties": {
-        "usuario_id":{
+        "productoId":{
              "type":"string",
              "pattern": "^[0-9a-fA-F]{24}$" #espefica un formato de id de referencia
          },
-        "cotizaciones": {
+        "historial": {
             "type":"array",
             "items":{
                 "type":"object",
                 "properties":{
-                    "id_producto":{ 
-                        "type":"string",
-                        "pattern": "^[0-9a-fA-F]{24}$" #espefica un formato de id de referencia
-                        },
-                    "cantidad": {"type": "number"},
+                    "precio": {"type": "number"},
                     "fecha": {"type": "string", "format": "date"}
                 },
-                "required": [ "id_producto","cantidad", "fecha"]
+                "required": [ "precio", "fecha"]
             }
         }
-
     },
-    "required": [ "usuario_id","cotizaciones"]
+    "required": [ "productoId","historial"]
+    
 }
-
 
 
 # Función para insertar datos en MongoDB
 def insertar_datos(datos):
     try:
         # Validar los datos con el esquema
-        jsonschema.validate(instance=datos, schema=cotizaciones) #Validacion de datos a ingresar, verficados por la plantilla
+        jsonschema.validate(instance=datos, schema=historialPrecio) #Validacion de datos a ingresar, verficados por la plantilla
         client = MongoClient('mongodb://localhost:27017/')# Conectar a la base de datos
         database = client['PruebaMongoDB_!'] #Base de datos 
-        coleccion = database['cotizaciones']# Coleccion (cotizaciones)
+        coleccion = database['historialPrecios']# Coleccion (historialPrecios)
         # Insertar los datos en la colección
         coleccion.insert_one(datos)
         print("Datos insertados correctamente.")
@@ -52,14 +48,13 @@ def insertar_datos(datos):
         print(f"Error: {e}")
 
 # Ejemplo de datos para insertar
-#Datos campo COTIZACIONES
+#Datos campo USUARIOS
 datos_validos =  {
-    "usuario_id":"662d9926c14765d69805d373",
-    "cotizaciones":[
-            {"id_producto":"662e8e3587af0b0914a3f8e3",
-             "cantidad":1,
-             "fecha":"2024-04-29"}                        
-        ]
+    "productoId":"662a5d9e98aa86df610b75ea",
+    "historial":[{
+        "precio":300000,
+        "fecha":"2020-04-12"
+    }]
 }
 
 # Intentar insertar los datos
