@@ -62,7 +62,7 @@ datos_validos = {
     "id_tienda": "662c5c545c0bc05ca941297d",
     "nombreProducto": "Monito Gamer",
     "categoria": "Monitor",
-    "precio": 239000,
+    "precio": 999000,
     "url":"https://www.falabellafalabella-cl/product/127925897/Monitor-Gamer-ELSA-23.8''-24F1P-FHD-1K-165HZ-1MS/127925898",
     "fechaDeExtraccion": "2024-04-27-",
     "reseña":[{

@@ -38,10 +38,14 @@ usuario = {
             "maxLength": 20
         },
         "favoritos":{
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type":"string",
+                "pattern": "^[0-9a-fA-F]{24}$" #espefica un formato de id de referencia
+            },
         }
     },
-    "required": ["nombre","email","password","favoritos"]    
+    "required": ["nombre","email","password"]    
 }
 
 producto = {
