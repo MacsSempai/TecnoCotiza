@@ -1,5 +1,6 @@
 import jsonschema
 from pymongo import MongoClient
+from datetime import date
 
 #==========================================================================================
 #======AGREGAR DATOS A COLECCION cotizaciones

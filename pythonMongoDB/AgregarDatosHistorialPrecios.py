@@ -55,7 +55,7 @@ datos_validos =  {
     "productoId":"662a5d9e98aa86df610b75ea",
     "historial":[{
         "precio":300000,
-        "fecha":"2020-04-12"
+        "fecha":str(date.today())  ##agrega la fecha del momento (año-mes-dia)
     }]
 }
 
