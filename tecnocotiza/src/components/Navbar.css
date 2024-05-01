@@ -2,12 +2,15 @@
   background-color: #333;
   color: #fff;
   padding: 10px 20px;
+  max-width: 1200px; /* Ancho máximo del navbar */
+  margin: 0 auto; /* Centra el navbar horizontalmente */
+  border-radius: 20px; /* Ovala las esquinas */
 }
 
 .navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .navbar-button {
@@ -26,17 +29,48 @@
   width: 200px;
 }
 
-.nav-submenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
+.nav-menu {
+  position: relative; /* Establece el contexto para los submenús posicionados absolutamente */
   display: flex;
+}
+
+.nav-submenu {
+  position: absolute; /* Posiciona el submenú absolutamente en relación al elemento padre (.nav-menu) */
+  top: 100%; /* Coloca el submenú debajo del elemento padre */
+  left: 0;
+  display: none; /* Inicialmente oculto */
   flex-wrap: wrap;
-  background-color: white; /* Ajusta el color de fondo según tu diseño */
-  border: 1px solid black; /* Añade un borde para delimitar el submenú */
-  padding: 10px; /* Ajusta el espaciado interno del submenú */
+  background-color: #fff; /* Color de fondo blanco */
+  border: 1px solid #000; /* Borde sólido negro */
+  padding: 10px; /* Espaciado interno */
+  width: 100%; /* Aprovechar todo el ancho del navbar */
+  flex-direction: row; /* Cambia la dirección de la disposición a fila */
+  min-width: max-content; /* Ajusta el ancho al contenido */
+  list-style: none; /* Quita los estilos de lista */
+  border-radius: 10px; /* Ovala las esquinas */
 }
 
 .nav-submenu li {
-  margin-right: 10px; /* Espacio entre los elementos del submenú */
+  margin-right: 20px; /* Espacio entre elementos */
 }
+
+.nav-menu:hover .nav-submenu {
+  display: block; /* Muestra el submenú cuando el mouse está sobre el elemento padre */
+  justify-content: space-between; /* Distribuir uniformemente los elementos */
+}
+
+.nav-submenu button {
+  background-color: transparent;
+  border: none;
+  color: #333; /* Color del texto */
+  font-size: 14px; /* Tamaño de fuente ligeramente más pequeño */
+  cursor: pointer;
+  margin-right: 10px; /* Espacio entre elementos */
+  /*flex-grow: 1; /* Hacer que los elementos ocupen el mismo espacio */
+}
+
+.nav-submenu button:hover {
+  color: #555; /* Cambiar el color del texto al pasar el ratón */
+}
+
+

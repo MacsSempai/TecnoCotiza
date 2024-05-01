@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'; // Importamos el componente Navbar
 
 ReactDOM.render(
   <React.StrictMode>
-    <Navbar /> {/* Renderizamos el componente Navbar en lugar de App */}
+    <Navbar /> 
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,126 +1,142 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 
+
 function Navbar() {
   const [menuVisible, setMenuVisible] = useState(false);
-  const [hardwareSubMenuVisible, setHardwareSubMenuVisible] = useState(false);
-  const [perifericosSubMenuVisible, setPerifericosSubMenuVisible] = useState(false);
-  const [dispositivosPortatilesSubMenuVisible, setDispositivosPortatilesSubMenuVisible] = useState(false);
-  const [electronicaConsumoSubMenuVisible, setElectronicaConsumoSubMenuVisible] = useState(false);
+  const [activeSubMenu, setActiveSubMenu] = useState(null);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const toggleHardwareSubMenu = () => {
-    setHardwareSubMenuVisible(!hardwareSubMenuVisible);
+  const handleSubMenuEnter = (subMenu) => {
+    setActiveSubMenu(subMenu);
   };
 
-  const togglePerifericosSubMenu = () => {
-    setPerifericosSubMenuVisible(!perifericosSubMenuVisible);
+  const handleSubMenuLeave = () => {
+    setActiveSubMenu(null);
   };
 
-  const toggleDispositivosPortatilesSubMenu = () => {
-    setDispositivosPortatilesSubMenuVisible(!dispositivosPortatilesSubMenuVisible);
-  };
-
-  const toggleElectronicaConsumoSubMenu = () => {
-    setElectronicaConsumoSubMenuVisible(!electronicaConsumoSubMenuVisible);
-  };
-
-  const redirectToPage = (page) => {
-    // Aquí puedes manejar la redirección a la página correspondiente
-    console.log(`Redireccionando a la página ${page}`);
+  const redirectToPage = (category, page) => {
+    // Aquí se manejar la redirección a la página correspondiente
+    console.log(`Redireccionando a la página de ${category}: ${page}`);
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-menu">
-          {/* Aquí se incluyen los otros botones y el buscador */}
           <div className="navbar-additional">
             <button className="navbar-button">Inicio</button>
             <input type="text" placeholder="Buscar" className="navbar-search" />
-            {/* Agregamos el botón "Desplegar" aquí */}
             <button className="navbar-button" onClick={toggleMenu}>
               Desplegar
             </button>
             <button className="navbar-button">Usuario</button>
             <button className="navbar-button">Configuración</button>
           </div>
-          {/* Aquí se incluye el primer submenú desplegable */}
           {menuVisible && (
             <ul className="nav-menu">
               <li>
-                <button onClick={toggleHardwareSubMenu}>Hardware</button>
-                {hardwareSubMenuVisible && (
-                  <ul className="nav-submenu">
+                <button
+                  className="navbar-button"
+                  onMouseEnter={() => handleSubMenuEnter("hardware")}
+                  onMouseLeave={handleSubMenuLeave}
+                >
+                  Hardware
+                </button>
+                {activeSubMenu === "hardware" && (
+                  <ul className="nav-submenu" onMouseEnter={() => handleSubMenuEnter("hardware")} onMouseLeave={handleSubMenuLeave}>
                     <li>
-                      <button onClick={() => redirectToPage("Placa madre")}>Placa madre</button>
+                      <button onClick={() => redirectToPage("Hardware", "Placa madre")}>Placa madre</button>
                     </li>
                     <li>
-                      <button onClick={() => redirectToPage("Ram")}>Ram</button>
+                      <button onClick={() => redirectToPage("Hardware", "Ram")}>Ram</button>
                     </li>
                     <li>
-                      <button onClick={() => redirectToPage("Almacenamiento")}>Almacenamiento</button>
+                      <button onClick={() => redirectToPage("Hardware", "Almacenamiento")}>Almacenamiento</button>
                     </li>
                     <li>
-                      <button onClick={() => redirectToPage("Tarjetas de video")}>Tarjetas de video</button>
-                    </li>
-                  </ul>
-                )}
-                <button onClick={togglePerifericosSubMenu}>Periféricos</button>
-                {perifericosSubMenuVisible && (
-                  <ul className="nav-submenu">
-                    <li>
-                      <button onClick={() => redirectToPage("Teclados")}>Teclados</button>
-                    </li>
-                    <li>
-                      <button onClick={() => redirectToPage("Mouses")}>Mouses</button>
-                    </li>
-                    <li>
-                      <button onClick={() => redirectToPage("Monitores")}>Monitores</button>
-                    </li>
-                    <li>
-                      <button onClick={() => redirectToPage("Audífonos")}>Audífonos</button>
+                      <button onClick={() => redirectToPage("Hardware", "Tarjetas de video")}>Tarjetas de video</button>
                     </li>
                   </ul>
                 )}
-                <button onClick={toggleDispositivosPortatilesSubMenu}>Dispositivos portátiles</button>
-                {dispositivosPortatilesSubMenuVisible && (
-                  <ul className="nav-submenu">
+                <button
+                  className="navbar-button"
+                  onMouseEnter={() => handleSubMenuEnter("perifericos")}
+                  onMouseLeave={handleSubMenuLeave}
+                >
+                  Periféricos
+                </button>
+                {activeSubMenu === "perifericos" && (
+                  <ul className="nav-submenu" onMouseEnter={() => handleSubMenuEnter("perifericos")} onMouseLeave={handleSubMenuLeave}>
                     <li>
-                      <button onClick={() => redirectToPage("Laptop")}>Laptop</button>
+                      <button onClick={() => redirectToPage("Periféricos", "Teclados")}>Teclados</button>
                     </li>
                     <li>
-                      <button onClick={() => redirectToPage("Smartphone")}>Smartphone</button>
+                      <button onClick={() => redirectToPage("Periféricos", "Mouses")}>Mouses</button>
                     </li>
                     <li>
-                      <button onClick={() => redirectToPage("Tablet")}>Tablet</button>
+                      <button onClick={() => redirectToPage("Periféricos", "Monitores")}>Monitores</button>
                     </li>
                     <li>
-                      <button onClick={() => redirectToPage("Wearables")}>Wearables</button>
-                    </li>
-                  </ul>
-                )}
-                <button onClick={toggleElectronicaConsumoSubMenu}>Electrónica de consumo</button>
-                {electronicaConsumoSubMenuVisible && (
-                  <ul className="nav-submenu">
-                    <li>
-                      <button onClick={() => redirectToPage("All in one")}>All in one</button>
-                    </li>
-                    <li>
-                      <button onClick={() => redirectToPage("Consolas")}>Consolas</button>
-                    </li>
-                    <li>
-                      <button onClick={() => redirectToPage("Televisores")}>Televisores</button>
-                    </li>
-                    <li>
-                      <button onClick={() => redirectToPage("Audio")}>Audio</button>
+                      <button onClick={() => redirectToPage("Periféricos", "Audífonos")}>Audífonos</button>
                     </li>
                   </ul>
                 )}
               </li>
+              <li>
+                <button
+                  className="navbar-button"
+                  onMouseEnter={() => handleSubMenuEnter("dispositivosPortatiles")}
+                  onMouseLeave={handleSubMenuLeave}
+                >
+                  Dispositivos portátiles
+                </button>
+                {activeSubMenu === "dispositivosPortatiles" && (
+                  <ul className="nav-submenu" onMouseEnter={() => handleSubMenuEnter("dispositivosPortatiles")} onMouseLeave={handleSubMenuLeave}>
+                    <li>
+                      <button onClick={() => redirectToPage("Dispositivos portátiles", "Laptop")}>Laptop</button>
+                    </li>
+                    <li>
+                      <button onClick={() => redirectToPage("Dispositivos portátiles", "Smartphone")}>Smartphone</button>
+                    </li>
+                    <li>
+                      <button onClick={() => redirectToPage("Dispositivos portátiles", "Tablet")}>Tablet</button>
+                    </li>
+                    <li>
+                      <button onClick={() => redirectToPage("Dispositivos portátiles", "Wearables")}>Wearables</button>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li>
+                <button
+                  className="navbar-button"
+                  onMouseEnter={() => handleSubMenuEnter("electronicaConsumo")}
+                  onMouseLeave={handleSubMenuLeave}
+                >
+                  Electrónica de consumo
+                </button>
+                {activeSubMenu === "electronicaConsumo" && (
+                  <ul className="nav-submenu" onMouseEnter={() => handleSubMenuEnter("electronicaConsumo")} onMouseLeave={handleSubMenuLeave}>
+                    <li>
+                      <button onClick={() => redirectToPage("Electrónica de consumo", "All in one")}>All in one</button>
+                    </li>
+                    <li>
+                      <button onClick={() => redirectToPage("Electrónica de consumo", "Consolas")}>Consolas</button>
+                    </li>
+                    <li>
+                      <button onClick={() => redirectToPage("Electrónica de consumo", "Televisores")}>Televisores</button>
+                    </li>
+                    <li>
+                      <button onClick={() => redirectToPage("Electrónica de consumo", "Audio")}>Audio</button>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              
             </ul>
           )}
         </div>
