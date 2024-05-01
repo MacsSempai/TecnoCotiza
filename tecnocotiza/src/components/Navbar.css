@@ -1,0 +1,138 @@
+/* Navbar.css */
+.navbar {
+  background-color: #5D8AA8; /* Un azul más suave */
+  color: #fff;
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 20px;
+  position: relative;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-toggle {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.menu-horizontal {
+  display: flex;
+  justify-content: center;
+  background-color: #B0C4DE; /* Un azul claro para los menús */
+  padding: 10px 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 20px 20px;
+}
+
+.menu-category {
+  position: relative;
+}
+
+.category-button {
+  background-color: transparent;
+  border: none;
+  color: #000000;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.category-button.active {
+  color: #4e4e4e;
+  background-color: #1E90FF; /* Un azul más fuerte para los elementos activos */
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #698BFA;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.menu-category:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background-color: #6780d1; /* Un azul más oscuro para el hover */
+}
+
+.navbar-end {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-search-container {
+  position: relative;
+}
+
+.navbar-search {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #F8F8FF; /* Un blanco ligeramente apagado para el ícono de búsqueda */
+}
+
+/* Responsivos */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 5px 10px; /* Reducir el padding */
+  }
+
+  .navbar-brand,
+  .navbar-search-container,
+  .navbar-search {
+    flex-grow: 1; /* Permitir que los elementos ocupen el espacio disponible */
+  }
+
+  .navbar-search {
+    width: auto; /* Permitir que el campo de búsqueda se ajuste al contenedor */
+  }
+
+  .navbar-toggle {
+    display: flex; /* Asegurar que el botón de menú esté visible */
+  }
+  
+  .navbar-end {
+    display: none; /* Ocultar elementos no utilizados en móviles */
+  }
+}
