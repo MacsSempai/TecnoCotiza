@@ -1,6 +1,8 @@
 import jsonschema
 from pymongo import MongoClient
 from bson import ObjectId
+from datetime import date
+
 
 # Esquema para los datos
 
@@ -68,7 +70,7 @@ datos_validos = {
     "reseña":[{
         "calificacion": 5,
         "comentario": "Excelente tienda",
-        "fecha": "2024-04-01"
+        "fecha": str(date.today())  ##agrega la fecha del momento (año-mes-dia)
         }
     ]
 }

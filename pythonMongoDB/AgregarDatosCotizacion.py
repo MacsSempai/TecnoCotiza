@@ -58,7 +58,8 @@ datos_validos =  {
     "cotizaciones":[
             {"id_producto":"662e8e3587af0b0914a3f8e3",
              "cantidad":1,
-             "fecha":"2024-04-29"}                        
+             "fecha":str(date.today())  ##agrega la fecha del momento (año-mes-dia)
+             }                        
         ]
 }
 
