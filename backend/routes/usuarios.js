@@ -1,11 +1,11 @@
-const { Router } = require('express');
-const router = Router();
+const express = require('express');
+const router = express.Router();
 
 const Usuario = require('../models/Usuarios'); 
-
-router.get('/Usuarios', async (req, res) => {
+//rutaminto get de usuarios
+router.get('/usuarios', async (req, res) => {
     try {
-    const usuarios = await Usuario.find();
+    const usuarios = await Usuario.find().exec();
     res.json(usuarios);
     } catch (error) {
         console.error('Error al obtener usuarios: ', error);

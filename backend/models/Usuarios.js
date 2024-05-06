@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
-
+//modelado de los usuarios
 const usuarioSchema = new mongoose.Schema({
-    nombre: { type: String, required: true }, // Definir nombre como String y requerido
+    nombre: { type: String, required: true }, 
     email: { 
         type: String, 
-        required: true, // Hacer que el campo email también sea requerido
-        unique: true,  // Asegurar que el email sea único en la base de datos
-        match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Por favor ingresa un email válido'] // Usar una expresión regular para validar el formato de email
+        required: true, //requiere un email
+        unique: true,  // solo utiliza email
+        match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Por favor ingresa un email válido'] // caracteres de email
     }
 });
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 
-module.exports = Usuario;
+module.exports = Usuario;//exportar modelado de usuarios 

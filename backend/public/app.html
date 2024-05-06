@@ -10,7 +10,7 @@
     <ul id="listaUsuarios"></ul>
 
     <script>
-        fetch('/usuarios')
+        fetch('/usuarios') // Modifica la ruta aquí
         .then(response => response.json())
         .then(data => {
             const lista = document.getElementById('listaUsuarios');
@@ -20,7 +20,7 @@
                 lista.appendChild(li);
             });
         })
-    .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error:', error));
     </script>
-</body>
+</body>                 
 </html>
