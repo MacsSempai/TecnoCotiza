@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-
+const bcrypt = require('bcrypt');
 const path = require('path');
 const usuariosRoutes = require('./routes/usuarios'); 
 
+
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1300;
 
 app.use(express.json()); 
 
@@ -16,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(usuariosRoutes);
 
+  
 // Conexión a la base de datos
 const connectDB = async () => {
     try {
