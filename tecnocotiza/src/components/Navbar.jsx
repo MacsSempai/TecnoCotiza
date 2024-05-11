@@ -1,4 +1,3 @@
-// Navbar.js
 import React, { useState } from 'react';
 import './Navbar.css';
 import { FaBars, FaHome, FaUser, FaCog, FaSearch } from 'react-icons/fa';
@@ -56,7 +55,7 @@ const Navbar = () => {
           <FaHome /> Inicio
         </div>
         {isMenuOpen && (
-          <div className="menu-horizontal">
+          <div className="menu-despegable">
             {Object.keys(menuItems).map((category) => (
               <div key={category} className="menu-category">
                 <button
