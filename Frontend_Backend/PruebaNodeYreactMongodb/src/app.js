@@ -1,0 +1,27 @@
+//___SERVIDOR _____________
+
+// Importamos express
+import express from 'express'; //const express = require('express');
+import morgan from 'morgan'; //para uso de peticiones
+import cookieParser from 'cookie-parser';
+import cors from 'cors'
+
+import authRoutes from './routes/auth.routs.js';
+import taskRoutes from './routes/tasks.routes.js';
+import productosRoutes from './routes/productos.routs.js';
+
+// Inicializamos express, es nuestro servidor
+const app = express();
+
+app.use(cors())
+
+//midelware
+app.use(morgan('dev')); //muestras las peticiones
+app.use(express.json()); //transforma los request body en formato json
+app.use(cookieParser()); //para poder mostrar lo que dice en cookies
+
+app.use("/api", authRoutes);
+app.use("/api", taskRoutes);
+app.use("/api", productosRoutes);
+
+export default app;// exporta app(otros archivos los pueden importar)
