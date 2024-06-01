@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Narvar.css';
+import './Navbar.css';
 import { FaBars, FaHome, FaUser, FaCog, FaSearch } from 'react-icons/fa';
 
 const DropdownMenu = ({ items }) => {

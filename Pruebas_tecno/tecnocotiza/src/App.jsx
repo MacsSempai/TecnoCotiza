@@ -1,11 +1,12 @@
 
 import React from 'react';
 import RegistroUsers from './registroUsers'; // Ajusta la ruta de importación según la estructura de tu proyecto
-import Navar from './components/Narvar';
+import Navbar from './components/Navbar';
+import { TbLayoutNavbar } from 'react-icons/tb';
 function App() {
   return (
     <div className="App">
-      <Navar></Navar>
+      <Navbar></Navbar>
       <RegistroUsers />
       
       

@@ -1,0 +1,86 @@
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .tabla.media table {
+    width: 30%;
+    border-collapse: collapse;
+  }
+  
+  .tabla.media th, .tabla.media td {
+    border: none;
+    padding: 10px 0;
+    text-align: left;
+  }
+  
+  .tabla.media th {
+    font-weight: bold;
+  }
+  
+  .tabla.media td {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tabla.media h2 {
+    margin-bottom: 10px;
+  }
+  
+  .tabla.izquierda {
+    flex-basis: 30%;
+    margin: 20px;
+  }
+  
+  .tabla.media {
+    flex-basis: 100%; /* Ajuste para que la tabla media ocupe toda la anchura disponible */
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tabla.derecha {
+    flex-basis: 40%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tabla.izquierda img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .tabla.derecha button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tabla.derecha button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .tabla_2 {
+    margin-top: 20px;
+  }
+  
+  .tabla_2 table {
+    width: 50%;
+    border-collapse: collapse;
+  }
+  
+  .tabla_2 th, .tabla_2 td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
