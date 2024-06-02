@@ -1,0 +1,67 @@
+.miClasePadre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura al 100% de la altura de la ventana del navegador */
+    margin: 0; /* Elimina los márgenes */
+    padding: 0; /* Elimina el padding */
+    background-color: #f4f5f7; /* Color de fondo de la página */
+  }
+  
+  .contenedor {
+    margin: 20px;
+    background-color: #F8F8FF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+  }
+  
+  .producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .buttonCotizacion {
+    margin: 5px;
+    width: auto;
+    padding: 10px;
+    width: 150px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #A1B5D8; /* Color más claro que el color base */
+    color: #5A789A; /* Color más oscuro que el color base */
+  }
+  
+  .rojo{
+    background-color: red;
+    color: white;
+  }
+  
+  .boton{
+    background-color: #88A2B3; /* Color desaturado basado en el color base */
+    color: white;
+  }
+  
+  .botones {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .categoria {
+    text-align: left;
+    background-color: #D3D3D3;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+  }
