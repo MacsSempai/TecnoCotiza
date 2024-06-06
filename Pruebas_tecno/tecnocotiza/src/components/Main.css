@@ -1,0 +1,95 @@
+/* Main.css */
+.main-body, .main-html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .main-container {
+    text-align: left;
+  }
+  
+  .main-title {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .main-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .main-categoria {
+    flex: 0 1 45%;
+    border: 1px solid #ccc;
+    margin: 10px;
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden; /* Para que los pseudo-elementos no se salgan del contenedor */
+    border-radius: 20px;
+  }
+  
+  .main-categoria::before, .main-categoria::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: -1; /* Para que los pseudo-elementos queden detrás del contenido */
+  }
+  
+  .main-categoria::before {
+    left: 0;
+    background-color: #6780d1;
+  }
+  
+  .main-categoria::after {
+    right: 0;
+    background-color: #B0C4DE;
+  }
+  
+  .main-categoria-info, .main-categoria-imagen {
+    z-index: 1; /* Para asegurar que el contenido esté encima del pseudo-elemento */
+  }
+  
+  .main-categoria-info {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .main-categoria-imagen {
+    flex: 0 0 150px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .main-categoria-imagen img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .main-categoria h2 {
+    margin-top: 0;
+  }
+  
+  .main-categoria button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .main-categoria button:hover {
+    background-color: #0056b3;
+  }
+  
