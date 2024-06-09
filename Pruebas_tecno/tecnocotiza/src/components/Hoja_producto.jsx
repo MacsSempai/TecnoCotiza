@@ -1,9 +1,9 @@
 import React from 'react';
 import './Hoja_producto.css';
 
-function TablaIzquierda() {
+const TablaIzquierda=()=> {
   return (
-    <div className="tabla izquierda">
+    <div className="tabla_izquierda">
       <img src="images/monitor.jpg" alt="Imagen del producto" />
     </div>
   );
@@ -11,7 +11,7 @@ function TablaIzquierda() {
 
 const TablaMedia=({ modelo })=> {
     return (
-      <div className="tabla media">
+      <div className="tabla_media">
         <h2>{modelo}</h2>
         <div>
           <h2>Características</h2>
@@ -55,8 +55,6 @@ const TablaMedia=({ modelo })=> {
               </tr>
             </tbody>
           </table>
-        </div>
-        <div>
           <h2>Especificaciones secundarias</h2>
           <table>
             <tbody>
@@ -80,20 +78,39 @@ const TablaMedia=({ modelo })=> {
   }
 const Derecha = ()=>{
   return(
-    <div className='continer'>
-      <ul className='tienda'>
-          <li>
-            <button onClick={() => window.open('https://www.pcfactory.cl', '_blank')}>PC pcFactory</button>
-          </li>
-          <li>
-            <button onClick={() => window.open('https://linio.falabella.com/linio-cl', '_blank')}>Linio</button>
-          </li>
-          <li>
-            <button onClick={() => window.open('https://www.spdigital.cl', '_blank')}>SP Digital</button>
-          </li>
+    <div className='cubo_tiendas_funciones'>
+      <div className='Tienda'>
+        <ul >
+            <li>
+              <button onClick={() => window.open('https://www.pcfactory.cl', '_blank')}>PC Factory</button>
+            </li>
+            <li>
+              <button onClick={() => window.open('https://linio.falabella.com/linio-cl', '_blank')}>Linio</button>
+            </li>
+            <li>
+              <button onClick={() => window.open('https://www.spdigital.cl', '_blank')}>SP Digital</button>
+            </li>
           
-      </ul>
+        </ul>
+      </div>
+      <div className="Funciones">
+        <ul>
+          <li>
+            <button>Crear Cotización</button>
+          </li> 
+          <li>
+            <button>Precio Histórico</button>
+          </li>
+          <li> 
+            <button>Avisame si baja de precio</button>
+          </li>
+          <li> 
+            <button>Comenta</button>
+          </li>
+        </ul>    
+      </div>
     </div>
+    
     
   );
 };
@@ -103,9 +120,12 @@ const Derecha = ()=>{
 function Hoja_producto() {
   return (
     <div className="container">
-      <TablaIzquierda />
-      <TablaMedia modelo="MSI Optix G241" />
-      <Derecha/>
+
+      <body>
+        <TablaMedia modelo="MSI Optix G241" />
+        <TablaIzquierda />
+        <Derecha/>
+      </body>
     </div>
   );
 }
