@@ -77,6 +77,17 @@ productos ={
                 },
                 "required": ["calificacion", "comentario", "fecha"]
             }
+        },
+        "Precio_Historico":{
+            "type": "array",
+            "item":{
+                "type":"object",
+                "properties":{
+                    "fecha":{"type":"string", "format":"date"},
+                    "precio":{"type":"integer"}
+                },
+                "required":["fecha","precio"]
+            }
         }
     },
     "required": ["id_tienda", "tienda", "nombreProducto", "categoria", "precio", "url", "fechaDeExtraccion"]
@@ -140,11 +151,11 @@ def insertar_datos_tiendas(datos):
         
         # Insertar los datos de productos en la colección de productos
         coleccion_productos.insert_one(datos)
-        print("Datos de productos insertados correctamente.")
+        print("Datos de tiendas insertados correctamente.")
     except jsonschema.exceptions.ValidationError as e:
-        print(f"Error de validación de productos: {e}")
+        print(f"Error de validación de tiendas: {e}")
     except Exception as e:
-        print(f"Error al insertar datos de productos: {e}")
+        print(f"Error al insertar datos de tiendas: {e}")
 def insertar_datos_cotizaciones(datos):
     try:
         # Validar los datos de productos con el esquema de productos
@@ -159,11 +170,11 @@ def insertar_datos_cotizaciones(datos):
         
         # Insertar los datos de productos en la colección de productos
         coleccion_productos.insert_one(datos)
-        print("Datos de productos insertados correctamente.")
+        print("Datos de cotizaciones insertados correctamente.")
     except jsonschema.exceptions.ValidationError as e:
-        print(f"Error de validación de productos: {e}")
+        print(f"Error de validación de cotizaciones: {e}")
     except Exception as e:
-        print(f"Error al insertar datos de productos: {e}")
+        print(f"Error al insertar datos de cotizaciones: {e}")
 
 # Función para insertar datos de usuarios en MongoDB
 def insertar_datos_usuarios(datos):
@@ -196,22 +207,36 @@ datos_validos_usuarios = {
 
 # Ejemplo de datos válidos para insertar (productos)
 datos_validos_productos = {
-    "id_tienda": ObjectId(),  # Generar un ObjectId válido como cadena
-    "tienda": "Nombre de la tienda",
-    "nombreProducto": "Nombre del producto",  # Corregido aquí
-    "categoria": "Informática",
-    "precio": 799,  # Precio debe ser un entero, no un decimal
-    "url": "URL del producto",
-    "fechaDeExtraccion": "2024-04-27",
-    "cantidad_disponible": 10,
+    "id_tienda": "60c72b2f9b1d8b2a4c8e4a9d",
+    "tienda": "Tienda Ejemplo",
+    "nombreProducto": "Producto Ejemplo",
+    "categoria": "Categoría Ejemplo",
+    "precio": 20000,
+    "url": "http://example.com/producto-ejemplo",
+    "fechaDeExtraccion": "2024-06-10",
     "reseña": [
         {
-            "calificacion": 4,
-            "comentario": "Buen producto",
-            "fecha": "2024-04-27"
+            "calificacion": 4.5,
+            "comentario": "Muy buen producto",
+            "fecha": "2024-06-01"
+        }
+    ],
+    "historicoPrecios": [
+        {
+            "fecha": "2024-05-01",
+            "precio": 18000
+        },
+        {
+            "fecha": "2024-06-01",
+            "precio": 19000
+        },
+        {
+            "fecha": "2024-06-10",
+            "precio": 20000
         }
     ]
 }
+
 datos_validos_tiendas = {
     "nombre": "Nombre de la tienda",
     "sitioWeb": "https://www.ejemplodetienda.com",
