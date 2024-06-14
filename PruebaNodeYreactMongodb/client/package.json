@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression": "^7.24.7",
     "axios": "^1.7.2",
     "cra-template": "1.2.0",
     "js-cookie": "^3.0.5",

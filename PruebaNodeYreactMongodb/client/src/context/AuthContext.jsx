@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { registerRequest, loginRequest, verityTokenRequet} from "../api/auth";
+import { registerRequest, loginRequest, verityTokenRequet, hacerCotizacion} from "../api/auth";
 import Cookies from 'js-cookie'
 
 export const AuthContext = createContext();
@@ -52,6 +52,23 @@ export const AuthProvider = ({children}) => {
         }
     };
 
+    const haceCotizacion = async (datos) => {
+        try {
+            const producto = await hacerCotizacion(datos);
+            
+        } catch (error) {
+            console.log(error)
+
+            
+            if (Array.isArray(error.response.data)){
+                return setErrors(error.response.data)
+            }
+            //para el objeto mensaje como un arreglo para poder mapar como arreglo
+            setErrors([error.response.data.mensaje])
+            
+        }
+    } 
+
     //elimina los mensajes pasado un tiempo, depende de como se comporte errors
     useEffect(()=>{
         if (errors.length >0){
@@ -103,7 +120,8 @@ export const AuthProvider = ({children}) => {
         loading,
         user,
         isAuthenticated,
-        errors}}>
+        errors,
+        haceCotizacion}}>
             {children}
         </AuthContext.Provider>
     ) 
