@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchProductos } from '../services/productoService';
 import ProductItem from './ProducItem';
 import './teamplateds_productos.css';
+import './Hoja_producto.css';
 
 const flattenSpecifications = (specs) => {
   const flatSpecs = {};
@@ -20,11 +21,14 @@ const flattenSpecifications = (specs) => {
   return flatSpecs;
 };
 
+
+
 const parsePrice = (priceStr) => {
   if (!priceStr) return "0";
   const cleanedPrice = parseInt(priceStr.replace(/[$,.]+/g, ""), 10);
   return cleanedPrice.toLocaleString();
 };
+
 
 const normalizeData = (data) => {
   return data.map(product => ({
@@ -36,30 +40,79 @@ const normalizeData = (data) => {
   }));
 };
 
-const ProductDetails = ({ product, onBack }) => {
+const TablaIzquierda = ({ images }) => {
   return (
-    <div className="product-details">
-      <button onClick={onBack}>Volver</button>
-      <h2>{product.name}</h2>
-      <p>{product.description}</p>
-      <p>Precio: {product.price}</p>
-      <p>Categoría: {product.category}</p>
-      {product.images.map((img, idx) => (
-        <img key={idx} src={img.startsWith('//') ? 'https:' + img : img} alt={`Imagen de producto ${idx + 1}`} className="product-image" />
+    <div className="tabla_izquierda">
+      {images.map((img, idx) => (
+        <img key={idx} src={img.startsWith('//') ? 'https:' + img : img} alt={`Imagen de producto ${idx + 1}`} />
       ))}
-      {Object.keys(product.specifications).length > 0 && (
-        <div className="product-specifications">
-          <h3>Especificaciones:</h3>
-          {Object.entries(product.specifications).map(([key, value], idx) => (
-            <p key={idx}><strong>{key}:</strong> {value}</p>
-          ))}
-        </div>
-      )}
-      <a href={product.url} target="_blank" rel="noopener noreferrer" className="product-link">Ver producto</a>
     </div>
   );
 };
-function ProductList() {
+
+const TablaMedia = ({ product }) => {
+  const { description, price, category, specifications } = product;
+
+  return (
+    <div className="tabla_media">
+      <h2>{product.name}</h2>
+      <div>
+        <h2>Características</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td>Descripción</td>
+              <td>{description}</td>
+            </tr>
+            <tr>
+              <td>Precio</td>
+              <td>{price}</td>
+            </tr>
+            <tr>
+              <td>Categoría</td>
+              <td>{category}</td>
+            </tr>
+            {Object.entries(specifications).map(([key, value], idx) => (
+              <tr key={idx}>
+                <td>{key}</td>
+                <td>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+const Derecha = ({ url, onBack }) => {
+  return (
+    <div className="cubo_tiendas_funciones">
+      <button onClick={onBack}>Volver</button>
+      <div className="Tienda">
+        <ul>
+          <li>
+            <button onClick={() => window.open(url, '_blank')}>Ver producto</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const ProductDetails = ({ product, onBack }) => {
+  return (
+    <div className="container">
+      <div className="body">
+        <TablaMedia product={product} />
+        <TablaIzquierda images={product.images} />
+        <Derecha url={product.url} onBack={onBack} />
+      </div>
+    </div>
+  );
+};
+
+const ProductList = () => {
   const [productos, setProductos] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -67,6 +120,7 @@ function ProductList() {
     const cargarProductos = async () => {
       try {
         const rawData = await fetchProductos();
+        console.log("Raw data from fetchProductos:", rawData); // Añadir esta línea
         const normalizedData = normalizeData(rawData);
         setProductos(normalizedData);
       } catch (error) {
@@ -76,12 +130,15 @@ function ProductList() {
 
     cargarProductos();
   }, []);
+
   const handleProductClick = (product) => {
     setSelectedProduct(product);
   };
-  const handleBack= ()=>{
+
+  const handleBack = () => {
     setSelectedProduct(null);
-  }
+  };
+
   if (selectedProduct) {
     return <ProductDetails product={selectedProduct} onBack={handleBack} />;
   }
@@ -94,13 +151,6 @@ function ProductList() {
       ))}
     </div>
   );
-}
+};
 
 export default ProductList;
-
-
-
-
-
-
-

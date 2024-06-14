@@ -9,17 +9,17 @@
 }
 
 .tabla_media {
-  flex-basis: 100%; /* Ajuste para que la tabla media ocupe toda la anchura disponible */
+  flex-basis: 100%;
   margin: 20px;
   display: flex;
-  flex-direction: column; /* Asegura que los elementos hijos estén en columna */
-  align-items: center; /* Centra los elementos hijos horizontalmente */
+  flex-direction: column;
+  align-items: center;
 }
 
 .tabla_media table {
   width: 50%;
   border-collapse: collapse;
-  margin: 0 auto; /* Centra la tabla horizontalmente */
+  margin: 0 auto;
   max-height: 150px;
 }
 
@@ -40,19 +40,30 @@
 .tabla_media h2 {
   margin-bottom: 10px;
 }
+
+.tabla_media th {
+  font-weight: bold;
+}
+
+.tabla_media td {
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla_media h2 {
+  margin-bottom: 10px;
+}
 .tabla_izquierda {
-  position: relative; /* Establece el contenedor como relativo */
-  width: 100%; /* Asegúrate de que el contenedor ocupe el ancho completo */
-  height: 200px; /* Ajusta la altura según tus necesidades */
+  position: relative;
+  width: 100%;
+  height: auto; /* Ajusta la altura según el contenido */
 }
 
 .tabla_izquierda img {
-  position: absolute; /* Posiciona la imagen de manera absoluta */
-  right: 950px; /* Mueve la imagen al borde derecho del contenedor */
-  top: -400px; /* Alinea la imagen con la parte superior del contenedor */
-  width: auto; /* Ajusta el ancho automáticamente */
-  height: 100%; /* Asegúrate de que la imagen ocupe toda la altura del contenedor */
-  object-fit: cover; /* Asegura que la imagen cubra completamente el contenedor */
+  position: static; /* Cambia la posición a estática para alinear automáticamente */
+  width: 100px; /* Ajusta el ancho de la imagen */
+  height: auto; /* Mantén la proporción de la imagen */
+  margin: 5px; /* Añade un margen entre las imágenes */
+  object-fit: cover;
   border-radius: 10px;
 }
 .cubo_tiendas_funciones {
@@ -60,18 +71,21 @@
   flex-direction: column;
   align-items: center;
 }
+
 .Tienda, .Funciones {
   display: flex;
-  justify-content: center; /* Centra horizontalmente el contenedor Tienda */
+  justify-content: center;
 }
+
 .Tienda ul, .Funciones ul {
-  list-style-type: none; /* Remueve los puntos de la lista */
-  padding: 0; /* Remueve el padding por defecto */
-  margin: 20px; 
+  list-style-type: none;
+  padding: 0;
+  margin: 20px;
   flex-direction: column;
-  align-items: center;/* Centra los elementos horizontalmente */
-  margin-left: 1000px;
+  align-items: center;
+  margin-left: 0; /* Centra la lista horizontalmente */
 }
+
 .Tienda ul li, .Funciones ul li {
   margin: 10px 0;
 }
@@ -84,6 +98,10 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.Funciones button {
+  background-color: #3e8e41;
 }
 
 .Funciones button {
