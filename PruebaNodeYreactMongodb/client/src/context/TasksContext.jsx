@@ -1,32 +1,80 @@
 import { createContext, useContext, useState } from "react";
-import { createTasksRequest } from "../api/tasks";
+import {
+  createTasksRequest,
+  getTasksRequest,
+  deleteTasksRequest,
+  getTaskRequest,
+  updateTasksRequest,
+} from "../api/tasks";
 
 const TasksContext = createContext();
 
 export const useTasks = () => {
-    const context = useContext(TasksContext);
+  const context = useContext(TasksContext);
 
-    if (!context){
-        throw new Error("useTasks must be used within a taskProvider");
+  if (!context) {
+    throw new Error("useTasks must be used within a taskProvider");
+  }
+
+  return context;
+};
+
+export function TaskProvider({ children }) {
+  const [tasks, setTasks] = useState([]);
+
+  const getTasks = async () => {
+    try {
+      const res = await getTasksRequest();
+      setTasks(res.data);
+      //console.log(res.data);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    return context;
-}
+  const createTask = async (task) => {
+    const res = await createTasksRequest(task);
+    console.log(res);
+  };
 
-export function TaskProvider({children}) {
-    const [tasks, setTasks] = useState([]);
-
-    const createTask = async (task) => {
-        const res =  await createTasksRequest(task);
-        console.log(res);
+  const deleteTask = async (id) => {
+    try {
+      const res = await deleteTasksRequest(id);
+      if (res.status === 204) setTasks(tasks.filter((task) => task._id != id)); //crear un arreglo nuevo sin la tarea
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return (
-        <TasksContext.Provider value={{
-            tasks,
-            createTask,
-        }}>
-            {children}
-        </TasksContext.Provider>
-    )
+  const getTask = async (id) => {
+    try {
+      const res = await getTaskRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateTask = async (id, task) => {
+    try {
+      await updateTasksRequest(id, task);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <TasksContext.Provider
+      value={{
+        tasks,
+        createTask,
+        getTasks,
+        deleteTask,
+        getTask,
+        updateTask
+      }}
+    >
+      {children}
+    </TasksContext.Provider>
+  );
 }

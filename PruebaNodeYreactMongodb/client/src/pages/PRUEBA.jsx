@@ -51,7 +51,7 @@ const ListaProductos = () => {
     };
 
     try {
-      console.log("JonathanHuinca")
+      console.log("Guardando cotizacion")
       const response = await axios.post('http://localhost:4000/api/cotizaciones', dataToSend);
       console.log('Quotation created successfully:', response.data); // Handle success response if needed
       // You can display a success message, redirect to a confirmation page, etc.
@@ -75,20 +75,20 @@ const ListaProductos = () => {
             className="product bg-white border border-gray-300 rounded-lg p-4 w-64 shadow-md hover:shadow-lg hover:scale-105 transition-transform "
           >
             <h2 className="text-lg font-medium text-gray-800 mb-2">{producto.nombreProducto}</h2>
-            <p className="text-gray-600 mb-2">Category: {producto.categoria}</p>
-            <p className="text-gray-600 mb-2">Store: {producto.tiendas}</p>
-            <p className="text-gray-600 mb-2">Price: ${producto.precio}</p>
+            <p className="text-gray-600 mb-2">Categoria: {producto.categoria}</p>
+            <p className="text-gray-600 mb-2">Tienda: {producto.tiendas}</p>
+            <p className="text-gray-600 mb-2">Precio: ${producto.precio}</p>
 
             {/* Button to toggle product selection */}
             <button
               className="bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
               onClick={() => handleProductSelection(producto._id)}
             >
-              {selectedProducts.includes(producto._id) ? 'Deselect' : 'Select'}
+              {selectedProducts.includes(producto._id) ? 'Excluir' : 'Seleccionar'}
             </button>
 
             <a href={producto.url} target="_blank" rel="noopener noreferrer" className="mt-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600">
-              View Product
+              Ver
             </a>
           </div>
         ))}
