@@ -17,8 +17,7 @@ export const useTasks = () => {
   }
 
   return context;
-};
-
+}
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState([]);
 

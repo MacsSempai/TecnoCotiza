@@ -13,6 +13,7 @@ function TasksFormPage() {
   useEffect(() => {
     async function loadTask() {
       if (params.id) {
+        // console.log("Este es el datto: ", typeof params.id)
         const task = await getTask(params.id);
         console.log(task);
         setValue("title", task.title);

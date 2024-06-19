@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { CrearCotizacion } from "../controllers/cotizaciones.controllers.js";
+import { CrearCotizacion, getCotizaciones ,getCotiUser} from "../controllers/cotizaciones.controllers.js";
+import { authRequired } from '../middlewares/validateToken.js'
 
 const router = Router();
 
@@ -20,7 +21,12 @@ const router = Router();
 //   });
 // });
 
-router.post('/cotizaciones', CrearCotizacion);
+router.get('/cotizaciones', authRequired, getCotizaciones);
+
+router.post('/cotizaciones',CrearCotizacion );
+
+
+router.get('/cotiProductosId/:id', getCotiUser)
 
 // router.get("/cotizaciones/:usuario_id", async (req, res) => {
 //   const { usuario_id } = req.params;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { registerRequest, loginRequest, verityTokenRequet, hacerCotizacion} from "../api/auth";
+import { registerRequest, loginRequest, verityTokenRequet, hacerCotizacion,getCotizacionesRequet} from "../api/auth";
 import Cookies from 'js-cookie'
 
 export const AuthContext = createContext();
@@ -19,6 +19,7 @@ export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [cotizaciones, setCotizaciones] =useState([])
 
     const signup = async (user) =>{
         try{
@@ -68,6 +69,8 @@ export const AuthProvider = ({children}) => {
             
         }
     } 
+
+
 
     const logout = () =>{
         Cookies.remove("token");

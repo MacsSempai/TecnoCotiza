@@ -8,5 +8,6 @@ export const loginRequest = (user) => axios.post('/login', user);
 
 export const verityTokenRequet = () => axios.get('/verify');
 
-export const hacerCotizacion = (cot) => axios.post('cotizaciones',cot);
+export const hacerCotizacion = (cot) => axios.post('/cotizaciones',cot);
 
+export const getCotizacionesRequet = (id) => axios.get(`/cotiProductosId/${id}`);

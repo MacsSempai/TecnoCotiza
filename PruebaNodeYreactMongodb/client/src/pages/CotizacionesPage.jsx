@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useCotizacion } from "../context/CotizacionesContext";
 
 const CrearCotizacion = () => {
-  const [usuarioId, setUsuarioId] = useState('');
-  const [productos, setProductos] = useState([]);
+  const { user } = useAuth();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  
 
-    const { data } = await axios.post('http://localhost:4000/api/cotizaciones', {
-      usuario_id: usuarioId,
-      productos,
-    });
+  const { getCotizaciones } = useCotizacion();
 
-    console.log(data);
-  };
+  useEffect(() => {
+    async function obtenerCotizacion(){
+      const dato = user.id
+      const cotizaciones = await getCotizaciones(dato);
+      console.log(cotizaciones)
+    }
+    obtenerCotizacion()
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>ID del usuario:</label>
-      <input type="text" value={usuarioId} onChange={(e) => setUsuarioId(e.target.value)} />
-
-      <label>Productos:</label>
-      <input type="text" value={productos} onChange={(e) => setProductos(e.target.value)} />
-
-      <button type="submit">Crear cotización</button>
-    </form>
+    <>
+      <h1>Bienvido {user.nombreUsuario}, Ya puedes ver tus cotizaciones...</h1>
+      <h1>el haydi es {user.id}</h1>
+      {/* <h2>{getCotizaciones({usuario_id: user.id})}</h2> */}
+    </>
   );
 };
 
