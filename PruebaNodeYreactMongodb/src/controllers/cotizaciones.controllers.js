@@ -54,14 +54,14 @@ export const getCotiUser = async (req, res) => {
     }
 
     // 4. Extracción de IDs de productos
-    const productIDs = cotizaciones.reduce((acc, cotizacion) => {
+    const cotizacionesId = cotizaciones.reduce((acc, cotizacion) => {
       return acc.concat(
         cotizacion.productos.map((producto) => producto)
       );
     }, []);
 
     // 5. Envío de la respuesta con IDs de productos
-    res.json({ productIDs });
+    res.json(cotizacionesId );
   } catch (error) {
     console.error("Error al obtener cotizaciones:", error);
     console.log("parametros:", req.params);

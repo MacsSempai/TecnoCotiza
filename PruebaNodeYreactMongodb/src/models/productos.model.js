@@ -19,6 +19,27 @@ const reviewSchema = new mongoose.Schema({
 });
 
 // Definimos el esquema para los productos
+// const productSchema = new mongoose.Schema({
+//     _id: { type: mongoose.Schema.Types.ObjectId, required: true },
+//     id_tienda: { type: String, required: true },
+//     nombreProducto: { type: String, required: true },
+//     categoria: { type: String, required: true },
+//     precio: { type: Number, required: true },
+//     url: { type: String, required: true },
+//     fechaDeExtraccion: { type: String, required: true },
+//     reseña: {
+//       type: [
+//         {
+//           calificacion: { type: Number, required: true },
+//           comentario: { type: String, required: true },
+//           fecha: { type: Date, required: true },
+//         },
+//       ],
+//       required: true,
+//     },
+//   });
+
+
 const productSchema = new mongoose.Schema({
     tiendas: {
         type: mongoose.Schema.Types.ObjectId,

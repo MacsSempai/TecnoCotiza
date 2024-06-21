@@ -12,6 +12,7 @@ const ListaProductos = () => {
     const fetchProductos = async () => {
       try {
         const response = await axios.get('http://localhost:4000/api/productos');
+        console.log("react pruductos:",response.data)
         setProductos(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
