@@ -47,12 +47,18 @@ usuarios = {
             "minLength": 8,
             "maxLength": 20
         },
-        "favoritos":{
-            "type": "array"
+        "favoritos": {
+            "type": "array",
+            "items": {"type": "string", "format": "objectid"}
+        },
+        "vistos": {
+            "type": "array",
+            "items": {"type": "string", "format": "objectid"}
         }
     },
-    "required": ["nombre","email","password","favoritos"]    
+    "required": ["nombre", "email", "password", "favoritos"]
 }
+
 
 productos ={
     "type": "object",
@@ -241,6 +247,58 @@ datos_validos_cotizaciones = {
         }
     ]
 }
+#-----------------------------------------------------------------------------------------------------------
+# Función para insertar datos de usuarios en MongoDB
+def insertar_datos_usuarios(datos):
+    try:
+        # Validar los datos de usuarios con el esquema de usuarios
+        jsonschema.validate(instance=datos, schema=usuarios)
+        
+        # Conectar a la base de datos
+        client = MongoClient('mongodb://localhost:27017/')
+        database = client['tecnocotiza']
+        
+        # Acceder a la colección de usuarios
+        coleccion_usuarios = database['usuarios']
+        
+        # Insertar los datos de usuarios en la colección de usuarios
+        coleccion_usuarios.insert_one(datos)
+        print("Datos de usuarios insertados correctamente.")
+    except jsonschema.exceptions.ValidationError as e:
+        print(f"Error de validación de usuarios: {e}")
+    except Exception as e:
+        print(f"Error al insertar datos de usuarios: {e}")
+
+def actualizar_vistos_usuario(usuario_id, producto_id):
+    try:
+        client = MongoClient('mongodb://localhost:27017/')
+        database = client['tecnocotiza']
+        coleccion_usuarios = database['usuarios']
+
+        # Actualizar la lista de productos vistos del usuario
+        coleccion_usuarios.update_one(
+            {"_id": ObjectId(usuario_id)},
+            {"$addToSet": {"vistos": ObjectId(producto_id)}}
+        )
+        
+        # Verificar si el producto ha sido visto por más de 50 usuarios
+        usuarios_que_vieron = coleccion_usuarios.count_documents({"vistos": ObjectId(producto_id)})
+        if usuarios_que_vieron >= 50:
+            # Almacenar en visto_por_todos
+            coleccion_usuarios.update_one(
+                {"_id": ObjectId(usuario_id)},
+                {"$addToSet": {"visto_por_todos": ObjectId(producto_id)}}
+            )
+        
+        print(f"Producto {producto_id} visto por el usuario {usuario_id} actualizado correctamente.")
+    except Exception as e:
+        print(f"Error al actualizar los productos vistos del usuario: {e}")
+
+# Ejemplo de uso
+usuario_id = "60a6b96c8f1b8b35f0a5f1b8"  # ID del usuario
+producto_id = "60a6b96c8f1b8b35f0a5f1b9"  # ID del producto
+
+actualizar_vistos_usuario(usuario_id, producto_id)
 
 # Intentar insertar los datos válidos de usuarios
 insertar_datos_usuarios(datos_validos_usuarios)
