@@ -1,0 +1,109 @@
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #6189A3;
+  
+}
+
+.tabla_media {
+  flex-basis: 100%;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tabla_media table {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  max-height: 150px;
+}
+
+.tabla_media th, .tabla_media td {
+  border: none;
+  padding: 10px 0;
+  text-align: left;
+}
+
+.tabla_media th {
+  font-weight: bold;
+}
+
+.tabla_media td {
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla_media h2 {
+  margin-bottom: 10px;
+}
+
+.tabla_media th {
+  font-weight: bold;
+}
+
+.tabla_media td {
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla_media h2 {
+  margin-bottom: 10px;
+}
+.tabla_izquierda {
+  position: relative;
+  width: 100%;
+  height: auto; /* Ajusta la altura según el contenido */
+}
+
+.tabla_izquierda img {
+  position: static; /* Cambia la posición a estática para alinear automáticamente */
+  width: 100px; /* Ajusta el ancho de la imagen */
+  height: auto; /* Mantén la proporción de la imagen */
+  margin: 5px; /* Añade un margen entre las imágenes */
+  object-fit: cover;
+  border-radius: 10px;
+}
+.cubo_tiendas_funciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Tienda, .Funciones {
+  display: flex;
+  justify-content: center;
+}
+
+.Tienda ul, .Funciones ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 0; /* Centra la lista horizontalmente */
+}
+
+.Tienda ul li, .Funciones ul li {
+  margin: 10px 0;
+}
+
+.Tienda button, .Funciones button {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 0px;
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Funciones button {
+  background-color: #3e8e41;
+}
+
+.Funciones button {
+  background-color: #3e8e41;
+}

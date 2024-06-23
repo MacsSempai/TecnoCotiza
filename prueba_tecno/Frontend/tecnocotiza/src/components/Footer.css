@@ -1,0 +1,85 @@
+/* General container styles */
+.container {
+  max-width: 1230px;
+  margin: auto;
+  /* Add padding to prevent content from touching the edges */
+}
+
+/* Footer styles */
+.footer {
+  background-color: #2d2d32;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px 0; /* Add padding for internal spacing */
+  color: #e7e7e7;
+  width: 100%; /* Ensure the footer takes up the full width of its container */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.footer p {
+  color: #ccc;
+  margin: 10px 0 0; /* Add margin for spacing between elements */
+}
+
+/* Footer links container */
+.footer-links {
+  margin-top: 10px;
+  width: 100%; /* Ensure footer-links takes the full width */
+}
+
+/* Social media links */
+.footer-social {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Add space between icons */
+}
+
+.footer-social a {
+  color: #ccc;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.footer-social a:hover {
+  color: #fff;
+}
+
+/* List styles */
+.list {
+  list-style-type: none;
+  padding: 0; /* Remove default padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0; /* Remove default margin */
+}
+
+.list li {
+  margin: 5px 0;
+}
+
+.list a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-links li:hover {
+  color: #000000;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .footer-links {
+    display: flex;
+    justify-content: center;
+  }
+
+  .list {
+    flex-direction: row; /* Change to row direction on larger screens */
+  }
+
+  .list li {
+    margin: 0 15px; /* Add spacing between list items */
+  }
+}
