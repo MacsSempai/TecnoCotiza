@@ -94,41 +94,41 @@
 }
 
 /* Estilos adicionales para el carrusel */
-.carousel .control-dots .dot {
+.lo-mas-visto-carousel .control-dots .dot {
   background-color: #007BFF;
   box-shadow: none;
 }
 
-.carousel .control-dots .dot.selected {
+.lo-mas-visto-carousel .control-dots .dot.selected {
   background-color: #0056b3;
 }
 
-.carousel .slide img {
+.lo-mas-visto-carousel .slide img {
   display: block;
   margin: 0 auto;
   max-height: 300px; /* Ajusta esta altura según sea necesario */
 }
 
-.carousel .thumb {
+.lo-mas-visto-carousel .thumb {
   border: none;
 }
 
-.carousel .carousel-status {
+.lo-mas-visto-carousel .carousel-status {
   display: none; /* Oculta el estado del carrusel (1/5, 2/5, etc.) */
 }
 
-.carousel .control-arrow {
+.lo-mas-visto-carousel .control-arrow {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.carousel .control-prev.control-arrow:before {
+.lo-mas-visto-carousel .control-prev.control-arrow:before {
   border-right: 8px solid #fff;
 }
 
-.carousel .control-next.control-arrow:before {
+.lo-mas-visto-carousel .control-next.control-arrow:before {
   border-left: 8px solid #fff;
 }
 
-.carousel .carousel .control-arrow:hover {
+.lo-mas-visto-carousel .carousel .control-arrow:hover {
   background: rgba(0, 0, 0, 0.8);
 }
