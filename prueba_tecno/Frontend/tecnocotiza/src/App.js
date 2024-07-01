@@ -15,6 +15,11 @@ import Navbar from "./componentes/NavBar";
 import CrearCotizacion from "./pages/CotizacionesPage";
 import ListaProductos from "./pages/PRUEBA";
 import { CotizacionProvider } from "./context/CotizacionesContext";
+
+// import React from 'react';
+// import Narvar from './components/Narvar';
+import ProductList from './components/ProductList';
+// import Footer from './components/Footer';
 //el uso de AuthProvider espera que todo puedan usar el contexto
 function App() {
   return (
@@ -23,9 +28,10 @@ function App() {
         <CotizacionProvider>
           <BrowserRouter>
             <main className="container mx-auto px-10">
-              <Navbar />
+              <Navbar/>
+              {/* <ProductList/> */}
               <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<ListaProductos />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
 
@@ -33,12 +39,13 @@ function App() {
 
                 <Route element={<ProtectedRouter />}>
                   <Route path="/cotizaciones" element={<CrearCotizacion />} />
-                  <Route path="/tasks" element={<TasksPage />} />
+                  {/* <Route path="/tasks" element={<TasksPage />} />
                   <Route path="/add-task" element={<TasksFormPage />} />
                   <Route path="/tasks/:id" element={<TasksFormPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/profile" element={<ProfilePage />} /> */}
                 </Route>
               </Routes>
+              {/* <Footer/> */}
             </main>
           </BrowserRouter>
         </CotizacionProvider>

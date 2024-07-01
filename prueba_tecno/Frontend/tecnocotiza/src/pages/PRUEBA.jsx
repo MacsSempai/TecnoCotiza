@@ -1,6 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+const flattenSpecifications = (specs) => {
+  const flatSpecs = {};
+  const flatten = (obj, parentKey = "") => {
+    for (const [key, value] of Object.entries(obj)) {
+      const newKey = parentKey ? `${parentKey} - ${key}` : key;
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        flatten(value, newKey);
+      } else {
+        flatSpecs[newKey] = value;
+      }
+    }
+  };
+
+  flatten(specs);
+  return flatSpecs;
+};
+
+// ----3ro uso-----
+const parsePrice = (priceStr) => {
+  if (!priceStr) return 0;
+  return parseInt(priceStr.replace(/[$,.]+/g, ""), 10);
+};
+
+//----Primer uso---------
+const normalizeData = (data) => {
+  return data.map((product) => ({
+    ...product,
+    price: parsePrice(product.price),
+    images: product.images || product.image_urls || [],
+    description: product.description || "Descripción no disponible",
+    category: product.category || "Categoría no disponible",
+    specifications: flattenSpecifications(product.specifications || {}),
+  }));
+};
 
 const ListaProductos = () => {
   const [productos, setProductos] = useState([]); // List of all products
@@ -8,14 +44,20 @@ const ListaProductos = () => {
 
   const { user, haceCotizacion } = useAuth();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/productos');
-        console.log("react pruductos:",response.data)
-        setProductos(response.data);
+        const response = await axios.get("http://localhost:4000/api/productos");
+        console.log("react pruductos:", response.data);
+        const normalizedData = normalizeData(response.data);
+        const productosOrdenados = normalizedData.sort(
+          (a, b) => a.price - b.price
+        );
+        setProductos(productosOrdenados);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
@@ -42,8 +84,14 @@ const ListaProductos = () => {
 
   const handleAddToSelectedList = async () => {
     if (selectedProducts.length === 0) {
-      console.warn('No products selected. Please select products to create a quotation.');
+      console.warn(
+        "No products selected. Please select products to create a quotation."
+      );
       return; // Prevent unnecessary API call if no products are selected
+    }
+
+    if (user ===null) {
+      return  navigate("/register");
     }
 
     const dataToSend = {
@@ -52,15 +100,18 @@ const ListaProductos = () => {
     };
 
     try {
-      console.log("Guardando cotizacion")
-      const response = await axios.post('http://localhost:4000/api/cotizaciones', dataToSend);
-      console.log('Quotation created successfully:', response.data); // Handle success response if needed
+      console.log("Guardando cotizacion");
+      const response = await axios.post(
+        "http://localhost:4000/api/cotizaciones",
+        dataToSend
+      );
+      console.log("Quotation created successfully:", response.data); // Handle success response if needed
       // You can display a success message, redirect to a confirmation page, etc.
 
       // Optionally clear selected products after successful submission
       setSelectedProducts([]);
     } catch (error) {
-      console.log('Error creating quotation:', error);
+      console.log("Error creating quotation:", error);
       // Handle errors appropriately, e.g., display an error message to the user
     }
   };
@@ -72,23 +123,40 @@ const ListaProductos = () => {
       <div className="flex flex-wrap gap-4 justify-center">
         {productos.map((producto) => (
           <div
-            key={producto._id}
+            key={producto.id}
             className="product bg-white border border-gray-300 rounded-lg p-4 w-64 shadow-md hover:shadow-lg hover:scale-105 transition-transform "
           >
-            <h2 className="text-lg font-medium text-gray-800 mb-2">{producto.nombreProducto}</h2>
-            <p className="text-gray-600 mb-2">Categoria: {producto.categoria}</p>
+            <h2 className="text-lg font-medium text-gray-800 mb-2">
+              {producto.name}
+            </h2>
+            <p className="text-gray-600 mb-2">Categoria: {producto.category}</p>
             <p className="text-gray-600 mb-2">Tienda: {producto.tiendas}</p>
-            <p className="text-gray-600 mb-2">Precio: ${producto.precio}</p>
+            <p className="text-gray-600 mb-2">Precio: ${producto.price}</p>
+            {producto.images.map((img, idx) => (
+              <img
+                key={idx}
+                src={img.startsWith("//") ? "https:" + img : img}
+                alt={`Imagen de producto ${idx + 1}`}
+                className="product-image"
+              />
+            ))}
 
             {/* Button to toggle product selection */}
             <button
               className="bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
               onClick={() => handleProductSelection(producto._id)}
             >
-              {selectedProducts.includes(producto._id) ? 'Excluir' : 'Seleccionar'}
+              {selectedProducts.includes(producto._id)
+                ? "Excluir"
+                : "Seleccionar"}
             </button>
 
-            <a href={producto.url} target="_blank" rel="noopener noreferrer" className="mt-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600">
+            <a
+              href={producto.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
+            >
               Ver
             </a>
           </div>
@@ -96,6 +164,7 @@ const ListaProductos = () => {
       </div>
 
       {/* Button to handle adding selected products to a list */}
+
       <button
         className="mt-4 bg-green-500 text-white font-medium py-2 px-4 rounded-md hover:bg-green-600"
         disabled={selectedProducts.length === 0}
@@ -108,4 +177,3 @@ const ListaProductos = () => {
 };
 
 export default ListaProductos;
-

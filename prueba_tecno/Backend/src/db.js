@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 export const connectDB = async() => {
     try{
         //await mongoose.connect('mongodb://localhost:27017/PruebaFullstack');
-        await mongoose.connect('mongodb://localhost:27017/PruebaMongoDB_!');
+        await mongoose.connect('mongodb://localhost:27017/tecnocotiza');
         console.log(">>> BD conectada")
     }catch (error){
         console.log(error);

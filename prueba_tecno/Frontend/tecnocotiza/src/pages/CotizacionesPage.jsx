@@ -29,7 +29,7 @@ const CrearCotizacion = () => {
         }
         setProductosUser(aCotizaciones); // Update productosUser with an array of products
 
-        console.log("resultado", typeof aCotizaciones);
+        console.log("resultado", typeof aCotizaciones, aCotizaciones);
       } catch (error) {
         console.error(error);
       }
@@ -45,9 +45,7 @@ const CrearCotizacion = () => {
 
   return (
     <>
-      <h1 className="text-5xl font-bold">Bienvido {user.nombreUsuario}, Ya puedes ver tus cotizaciones...</h1>
-      <h1 className="text-5xl text-base text-center" >El ID del usuario es  {user.id}</h1>
-      <h1 className="text-5xl font-bold p-4">Tu Cotizaciones son las siguientes</h1>
+      <h1 className="text-5xl font-bold mt-4 mb-10">Bienvido {user.nombreUsuario}, Ya puedes ver tus cotizaciones...</h1>
 
       <div className="flex flex-wrap gap-4 justify">
         {productosUser.map((producto) => (
@@ -56,11 +54,11 @@ const CrearCotizacion = () => {
             className="product bg-white border border-gray-300 rounded-lg p-4 w-64 shadow-md hover:shadow-lg hover:scale-105 transition-transform "
           >
             <h2 className="text-lg font-medium text-gray-800 mb-2">
-              {producto.nombreProducto}
+              {producto.name}
             </h2>
-            <p className="text-gray-600 mb-2">Category: {producto.categoria}</p>
-            <p className="text-gray-600 mb-2">Store: {producto.tiendas}</p>
-            <p className="text-gray-600 mb-2">Price: ${producto.precio}</p>
+            <p className="text-gray-600 mb-2">Categoria: {producto.category}</p>
+            <p className="text-gray-600 mb-2">Tienda: {producto.tiendas}</p>
+            <p className="text-gray-600 mb-2">Precio: {producto.price}</p>
 
             <a
               href={producto.url}
