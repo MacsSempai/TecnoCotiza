@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const flattenSpecifications = (specs) => {
   const flatSpecs = {};
   const flatten = (obj, parentKey = "") => {
@@ -30,7 +30,9 @@ const parsePrice = (priceStr) => {
 const normalizeData = (data) => {
   return data.map((product) => ({
     ...product,
+    id: product._id,
     price: parsePrice(product.price),
+    oprice:product.price,
     images: product.images || product.image_urls || [],
     description: product.description || "Descripción no disponible",
     category: product.category || "Categoría no disponible",
@@ -90,8 +92,8 @@ const ListaProductos = () => {
       return; // Prevent unnecessary API call if no products are selected
     }
 
-    if (user ===null) {
-      return  navigate("/register");
+    if (user === null) {
+      return navigate("/register");
     }
 
     const dataToSend = {
@@ -118,29 +120,30 @@ const ListaProductos = () => {
 
   return (
     <div className="container mx-auto max-w-7xl p-4 bg-gray-100 rounded-lg shadow-md">
-      <h1 className="text-center text-gray-600 mb-4">Productos Informaticos</h1>
+      {/* <h1 className="text-center text-gray-600 mb-4">Productos Informaticos</h1> */}
+      <h1 className="text-3xl font-bold text-gray-800 md:text-4xl lg:text-5xl mb-4 text-center">
+        TecnoCotiza
+      </h1>
 
       <div className="flex flex-wrap gap-4 justify-center">
         {productos.map((producto) => (
           <div
             key={producto.id}
-            className="product bg-white border border-gray-300 rounded-lg p-4 w-64 shadow-md hover:shadow-lg hover:scale-105 transition-transform "
+            className="product bg-white border border-gray-300 rounded-lg p-4 w-80 shadow-md hover:shadow-lg hover:scale-105 transition-transform "
           >
             <h2 className="text-lg font-medium text-gray-800 mb-2">
               {producto.name}
             </h2>
             <p className="text-gray-600 mb-2">Categoria: {producto.category}</p>
             <p className="text-gray-600 mb-2">Tienda: {producto.tiendas}</p>
-            <p className="text-gray-600 mb-2">Precio: ${producto.price}</p>
-            {producto.images.map((img, idx) => (
+            <p className="text-gray-600 mb-2">Precio: {producto.oprice}</p>
+            {producto.images && producto.images.length > 0 && (
               <img
-                key={idx}
-                src={img.startsWith("//") ? "https:" + img : img}
-                alt={`Imagen de producto ${idx + 1}`}
+                src={producto.images[0]} // Display the first image only
+                alt={`Imagen de producto 1`}
                 className="product-image"
               />
-            ))}
-
+            )}
             {/* Button to toggle product selection */}
             <button
               className="bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
@@ -150,27 +153,34 @@ const ListaProductos = () => {
                 ? "Excluir"
                 : "Seleccionar"}
             </button>
-
-            <a
-              href={producto.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              key={producto.id}
+              to={`/productos/detallado/${producto.id}`}
+              // target="_blank" //abre una nueva pestaña
+              // rel="noopener noreferrer" // mantiene el comportamiento del enlace seguro
               className="mt-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
             >
-              Ver
-            </a>
+              Detalles
+            </Link>
           </div>
         ))}
       </div>
 
       {/* Button to handle adding selected products to a list */}
 
-      <button
+      {/* <button
         className="mt-4 bg-green-500 text-white font-medium py-2 px-4 rounded-md hover:bg-green-600"
         disabled={selectedProducts.length === 0}
         onClick={handleAddToSelectedList}
       >
         Add Selected Products ({selectedProducts.length})
+      </button> */}
+      <button
+        className="fixed bottom-4 right-4 bg-green-500 text-white font-bold py-2 px-4 rounded-md hover:bg-green-600"
+        disabled={selectedProducts.length === 0}
+        onClick={handleAddToSelectedList}
+      >
+        Agregar a cotizaciones({selectedProducts.length})
       </button>
     </div>
   );

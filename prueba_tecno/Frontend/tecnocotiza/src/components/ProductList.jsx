@@ -27,7 +27,7 @@ const flattenSpecifications = (specs) => {
 const parsePrice = (priceStr) => {
   if (!priceStr) return 0;
   return parseInt(priceStr.replace(/[$,.]+/g, ""), 10);
-};
+}; 
 
 //----Primer uso---------
 const normalizeData = (data) => {  

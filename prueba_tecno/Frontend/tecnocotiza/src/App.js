@@ -3,6 +3,9 @@ import { AuthProvider } from "./context/AuthContext";
 
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import MostrarDetalle from "./pages/productoDetalladoPage";
+
+
 import TasksPage from "./pages/TasksPage";
 import TasksFormPage from "./pages/TaskFormPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -36,6 +39,12 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
 
                 <Route path="/productos" element={<ListaProductos />} />
+                <Route path="/productos/detallado/:id" element={<MostrarDetalle />} />
+
+                
+
+
+
 
                 <Route element={<ProtectedRouter />}>
                   <Route path="/cotizaciones" element={<CrearCotizacion />} />
