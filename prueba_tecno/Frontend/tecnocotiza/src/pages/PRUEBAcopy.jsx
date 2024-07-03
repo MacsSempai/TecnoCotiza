@@ -124,9 +124,8 @@ const ListaProductos = () => {
   };
 
   const filteredProductos = selectedCategory
-  ? productos.filter((producto) => producto.category === selectedCategory)
-  : productos;
-
+  ? productos.filter((producto) => producto.category === selectedCategory).sort((a, b) => a.price - b.price)
+  : productos.sort((a, b) => a.price - b.price);
 
   return (
     <div className="container mx-auto max-w-7xl p-4 bg-gray-100 rounded-lg shadow-md">
