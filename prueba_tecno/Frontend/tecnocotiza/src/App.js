@@ -16,7 +16,7 @@ import { TaskProvider } from "./context/TasksContext";
 import Navbar from "./componentes/NavBar";
 
 import CrearCotizacion from "./pages/CotizacionesPage";
-import ListaProductos from "./pages/PRUEBA";
+import ListaProductos from "./pages/PRUEBAcopy";
 import { CotizacionProvider } from "./context/CotizacionesContext";
 
 // import React from 'react';

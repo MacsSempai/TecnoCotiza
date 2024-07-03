@@ -33,7 +33,7 @@ const normalizeData = (data) => {
     ...product,
     id: product._id,
     price: parsePrice(product.price),
-    oprice:product.price,
+    oprice: product.price,
     images: product.images || product.image_urls || [],
     description: product.description || "Descripción no disponible",
     category: product.category || "Categoría no disponible",
@@ -44,27 +44,24 @@ const normalizeData = (data) => {
 const ListaProductos = () => {
   const [productos, setProductos] = useState([]); // List of all products
   const [selectedProducts, setSelectedProducts] = useState([]); // List of selected product IDs
+  const [categorias, setCategorias] = useState([]); // List of unique categories
+  const [selectedCategory, setSelectedCategory] = useState(""); // Selected category for filtering
 
   const { user, haceCotizacion } = useAuth();
 
   const navigate = useNavigate();
 
-
-
-  const [categorias, setCategorias] = useState([]); // List of unique categories
   useEffect(() => {
     const fetchProductos = async () => {
       try {
         const response = await axios.get("http://localhost:4000/api/productos");
-        console.log("react pruductos:", response.data);
         const normalizedData = normalizeData(response.data);
-        const productosOrdenados = normalizedData.sort(
-          (a, b) => a.price - b.price
-        );
-        setProductos(productosOrdenados);
+        setProductos(normalizedData);
 
-        //  Extract unique categories efficiently
-        const uniqueCategories = [...new Set(normalizedData.map((producto) => producto.category))];
+        // Extract unique categories efficiently
+        const uniqueCategories = [
+          ...new Set(normalizedData.map((producto) => producto.category)),
+        ];
         setCategorias(uniqueCategories);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -101,7 +98,6 @@ const ListaProductos = () => {
     }
 
     if (user === null) {
-
       return navigate("/register");
     }
 
@@ -127,7 +123,9 @@ const ListaProductos = () => {
     }
   };
 
-
+  const filteredProductos = selectedCategory
+  ? productos.filter((producto) => producto.category === selectedCategory)
+  : productos;
 
 
   return (
@@ -137,37 +135,25 @@ const ListaProductos = () => {
         TecnoCotiza
       </h1>
 
-
-     {/* Filter bar with static options and dynamic categories */}
-     <div className="flex justify-between mb-4">
+      {/* Filter bar with static options and dynamic categories */}
+      <div className="flex justify-between mb-4">
         <select
-          className="bg-gray-100 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          value={selectedCategory} // Use the selectedCategory state variable
+          onChange={(event) => setSelectedCategory(event.target.value)}
+          className="bg-gray-100 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 text-black"
         >
           <option value="">Todas las Categorias</option>
-          <option value="computadoras">Computadoras</option>
-          <option value="tablets">Tablets</option>
-          <option value="teclados">Teclados</option>
+          {categorias.map((categoria, index) => (
+            <option key={index} value={categoria} className="text-black">
+              {categoria}
+            </option>
+          ))}
           {/* Add more static options as needed */}
         </select>
-
-        {categorias.length > 0 && (
-          <select
-            className="bg-gray-100 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          >
-            <option value="">Filtrar por Categoría</option>
-            {categorias.map((categoria) => (
-              <option key={categoria} value={categoria}>
-                {categoria}
-              </option>
-            ))}
-          </select>
-        )}
       </div>
-
-
-
+    
       <div className="flex flex-wrap gap-4 justify-center">
-        {productos.map((producto) => (
+        {filteredProductos.map((producto) => (
           <div
             key={producto.id}
             className="product bg-white border border-gray-300 rounded-lg p-4 w-80 shadow-md hover:shadow-lg hover:scale-105 transition-transform "
@@ -180,7 +166,9 @@ const ListaProductos = () => {
             {/* <p className="text-gray-600 mb-2">Precio: {producto.oprice}</p> */}
             <div className="flex items-center gap-2">
               <span className="text-gray-700">Precio:</span>
-              <span className="text-lg font-bold text-green-500">{producto.oprice}</span>
+              <span className="text-lg font-bold text-green-500">
+                {producto.oprice}
+              </span>
             </div>
             {producto.images && producto.images.length > 0 && (
               <img

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getProdIdRequet } from "../api/auth";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const MostrarDetalle = () => {
@@ -32,7 +32,9 @@ const MostrarDetalle = () => {
   };
 
   const handlePreviousImage = () => {
-    const prevIndex = (currentImageIndex - 1 + producto.image_urls.length) % producto.image_urls.length;
+    const prevIndex =
+      (currentImageIndex - 1 + producto.image_urls.length) %
+      producto.image_urls.length;
     setCurrentImageIndex(prevIndex);
   };
 
@@ -48,9 +50,13 @@ const MostrarDetalle = () => {
           >
             <h2 className="text-lg font-medium text-gray-800 mb-2">{producto.name}</h2>
             <p className="text-gray-600 mb-2">Descripción: {producto.description}</p>
-            {producto.categoria && <p className="text-gray-600 mb-2">Categoría: {producto.categoria}</p>}
+            {producto.category && <p className="text-gray-600 mb-2">Categoría: {producto.category}</p>}
             {producto.tiendas && <p className="text-gray-600 mb-2">Tienda: {producto.tiendas}</p>}
-            <p className="text-gray-600 mb-2">Precio: {producto.price}</p>
+            {/* <p className="text-gray-700">Precio: {producto.price}</p> */}
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700">Precio:</span>
+              <span className="text-lg font-bold text-green-500">{producto.price}</span>
+            </div>
 
             {/* Image carousel */}
             {producto.image_urls && producto.image_urls.length > 0 && (
@@ -82,7 +88,8 @@ const MostrarDetalle = () => {
               to={producto.url}
               target="_blank" //abre una nueva pestaña
               rel="noopener noreferrer" // mantiene el comportamiento del enlace seguro
-              className="mt-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
+              // className="mt-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600"
+              className="mt-4 block w-full py-2 px-4 text-center text-white font-medium bg-blue-600 hover:bg-blue-700 rounded-md"
             >
               Ver
             </Link>
