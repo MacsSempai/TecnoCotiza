@@ -52,8 +52,8 @@ def extraer_info_del_sitemap_limitado(sitemap_url, limite_urls=30):
                             "name": nombre_producto,
                             "price": precio_producto,
                             "category": categoria,
-                            "images": imagenes,
-                            "specifications": especificaciones
+                            "images_urls": imagenes,
+                            "description": especificaciones
                         }
                         result = products_collection.update_one(
                             {"url": url},

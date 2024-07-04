@@ -49,9 +49,9 @@ def extraer_info_del_sitemap_cintegral(sitemap_url, limite_urls=200):
                         product_document = {
                             "url": url,
                             "name": nombre_producto,
-                            "current_price": precio,
-                            "categories": categorias,
-                            "images": imagenes,
+                            "price": precio,
+                            "category": categorias,
+                            "images_urls": imagenes,
                             "description": descripcion,
                             "store": "cintegral",
                             # "specifications": especificaciones,  # Para futura implementación
