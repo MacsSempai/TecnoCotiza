@@ -6,7 +6,6 @@ import ProductDetalles from './ProductDetalles';
 import '../css/teamplateds_productos.css';
 import '../css/Hoja_producto.css';
 
-//----2do que se usa
 const flattenSpecifications = (specs) => {
   const flatSpecs = {};
   const flatten = (obj, parentKey = '') => {
@@ -24,14 +23,12 @@ const flattenSpecifications = (specs) => {
   return flatSpecs;
 };
 
-// ----3ro uso-----
 const parsePrice = (priceStr) => {
   if (!priceStr) return 0;
   return parseInt(priceStr.replace(/[$,.]+/g, ""), 10);
-}; 
+};
 
-//----Primer uso---------
-const normalizeData = (data) => {  
+const normalizeData = (data) => {
   return data.map(product => ({
     ...product,
     price: parsePrice(product.price),
@@ -42,7 +39,6 @@ const normalizeData = (data) => {
   }));
 };
 
-
 const ProductList = () => {
   const [productos, setProductos] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -50,19 +46,16 @@ const ProductList = () => {
   const [categoriaSelec, setCategoriaSelec] = useState('');
   const [producthardware, setProductHardware] = useState(false);
   const [productperifericos, setProductPerifericos] = useState(false);
- 
 
   useEffect(() => {
     const cargarProductos = async () => {
       try {
-        const rawData = await fetchProductos(); //obtine los procutos get
-        console.log("Raw data from fetchProductos:", rawData);
-
+        const rawData = await fetchProductos();
         const normalizedData = normalizeData(rawData);
         const productosOrdenados = normalizedData.sort((a, b) => a.price - b.price);
         setProductos(productosOrdenados);
       } catch (error) {
-        console.error("Failed to fetch products:", error);
+        console.error("Error al cargar productos:", error);
       }
     };
 
@@ -76,7 +69,7 @@ const ProductList = () => {
   const handleBack = () => {
     setSelectedProduct(null);
   };
-  
+
   const handlePrecioMinimoChange = (event) => {
     setPrecioMinimo(parseInt(event.target.value, 10));
   };
@@ -88,18 +81,18 @@ const ProductList = () => {
   const handleProductHardware = (event) => {
     setProductHardware(event.target.checked);
   };
+
   const handlePerifericos = (event) => {
     setProductPerifericos(event.target.checked);
   };
 
-
   const Categorias_hardware = ['Accesorios Electrónica', 'Componentes Electrónicos'];
-  const Categorias_perifericos = ['Audifonos Call-Center', 'Audifonos Gamer','Mouse','Enclosure (Cofres)'];
+  const Categorias_perifericos = ['Audifonos Call-Center', 'Audifonos Gamer', 'Mouse', 'Enclosure (Cofres)'];
 
   const productosFiltrados = productos.filter(producto =>
     producto.price >= precioMinimo &&
     (!categoriaSelec || producto.category === categoriaSelec) &&
-    (!producthardware || Categorias_hardware.includes(producto.category))&&
+    (!producthardware || Categorias_hardware.includes(producto.category)) &&
     (!productperifericos || Categorias_perifericos.includes(producto.category))
   );
 
@@ -108,8 +101,6 @@ const ProductList = () => {
   if (selectedProduct) {
     return <ProductDetalles product={selectedProduct} onBack={handleBack} />;
   }
-
-
 
   return (
     <div className="product-list">
@@ -126,12 +117,11 @@ const ProductList = () => {
           onChange={handlePrecioMinimoChange}
           className="range-input"
         />
-      </div> 
-      <CategoriaFiltro  
+      </div>
+      <CategoriaFiltro
         categorias={categorias}
         categoriaSelec={categoriaSelec}
         onChange={handleCategoriaSelec}
-        
       />
       <label>
         <input
