@@ -13,7 +13,7 @@ import HomePage from "./pages/HomePage";
 
 import ProtectedRouter from "./ProtectedRoute";
 import { TaskProvider } from "./context/TasksContext";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/Navbar";
 
 import CrearCotizacion from "./pages/CotizacionesPage";
 import ListaProductos from "./pages/PRUEBAcopy";
