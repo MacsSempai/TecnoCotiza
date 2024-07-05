@@ -18,6 +18,9 @@ import Navbar from "./componentes/NavBar";
 import CrearCotizacion from "./pages/CotizacionesPage";
 import ListaProductos from "./pages/PRUEBAcopy";
 import { CotizacionProvider } from "./context/CotizacionesContext";
+import Narvar from "./components/Narvar";
+import Footer from "./components/Footer";
+import NavBar from "./componentes/NavBar";
 
 // import React from 'react';
 // import Narvar from './components/Narvar';
@@ -54,7 +57,7 @@ function App() {
                   <Route path="/profile" element={<ProfilePage />} /> */}
                 </Route>
               </Routes>
-              {/* <Footer/> */}
+              { <Footer/>}
             </main>
           </BrowserRouter>
         </CotizacionProvider>
