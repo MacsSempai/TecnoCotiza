@@ -31,7 +31,7 @@ function App() {
         <CotizacionProvider>
           <BrowserRouter>
             <main className="container mx-auto px-10">
-              <Navbar/>
+              <NavBar/>
               {/* <ProductList/> */}
               <Routes>
                 <Route path="/" element={<ListaProductos />} />
