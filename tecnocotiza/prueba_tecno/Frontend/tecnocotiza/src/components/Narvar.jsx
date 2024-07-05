@@ -18,6 +18,8 @@ const DropdownMenu = ({ items }) => {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const menuItems = {
     hardware: [
@@ -44,6 +46,18 @@ const Navbar = () => {
       { name: 'Televisores' },
       { name: 'Audio' },
     ],
+  };
+  const handleSearchChange = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    if (term.length > 2) {
+      fetch(`/api/search?query=${term}`)
+        .then(response => response.json())
+        .then(data => setSearchResults(data))
+        .catch(error => console.error('Error al buscar:', error));
+    } else {
+      setSearchResults([]);
+    }
   };
 
   return (
@@ -72,13 +86,28 @@ const Navbar = () => {
         )}
         <div className="navbar-end">
           <div className="navbar-search-container">
-            <input type="text" placeholder="Buscar" className="navbar-search" />
+            <input
+              type="text"
+              placeholder="Buscar"
+              className="navbar-search"
+              value={searchTerm}
+              onChange={handleSearchChange} 
+            />
             <FaSearch className="search-icon" />
           </div>
           <button className="navbar-button"><FaUser /> Usuario</button>
           <button className="navbar-button"><FaCog /> Configuración</button>
         </div>
       </div>
+      {searchResults.length > 0 && (
+        <div className="search-results">
+          {searchResults.map((result, index) => (
+            <div key={index} className="search-result-item">
+              {result.name}
+            </div>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
