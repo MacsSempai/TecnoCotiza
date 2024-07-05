@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { getProdIdRequet } from "../api/auth";
-import { useParams, Link } from "react-router-dom";
-import '../css/Productos.css'; // Importamos el archivo CSS
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import '../css/Productos.css';
 
 const MostrarDetalle = () => {
   const [producto, setProducto] = useState({});
@@ -9,6 +11,8 @@ const MostrarDetalle = () => {
   const [error, setError] = useState(null);
 
   const { id } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const obtenerProducto = async () => {
@@ -27,17 +31,32 @@ const MostrarDetalle = () => {
     obtenerProducto();
   }, [id]);
 
-  const handleNextImage = () => {
-    if (producto.images_urls && producto.images_urls.length > 0) {
+  const handleNextImage = useCallback(() => {
+    if (producto.images_urls?.length) {
       setCurrentImageIndex((currentImageIndex + 1) % producto.images_urls.length);
     }
-  };
+  }, [currentImageIndex, producto.images_urls]);
 
-  const handlePreviousImage = () => {
-    if (producto.images_urls && producto.images_urls.length > 0) {
-      setCurrentImageIndex(
-        (currentImageIndex - 1 + producto.images_urls.length) % producto.images_urls.length
-      );
+  const handlePreviousImage = useCallback(() => {
+    if (producto.images_urls?.length) {
+      setCurrentImageIndex((currentImageIndex - 1 + producto.images_urls.length) % producto.images_urls.length);
+    }
+  }, [currentImageIndex, producto.images_urls]);
+
+  const handleAddToQuotation = async () => {
+    if (!user) {
+      navigate("/register");
+      return;
+    }
+
+    const dataToSend = { usuario_id: user.id, productos: [producto._id] };
+
+    try {
+      const response = await axios.post("http://localhost:4000/api/cotizaciones", dataToSend);
+      console.log("Quotation created successfully:", response.data);
+      navigate("/cotizaciones");
+    } catch (error) {
+      console.log("Error creating quotation:", error);
     }
   };
 
@@ -53,26 +72,27 @@ const MostrarDetalle = () => {
     <>
       <h1 className="titulo">Detalles del producto</h1>
       <div className="producto-container">
-        <div key={producto._id || producto.id} className="producto">
+        <div className="producto" key={producto._id || producto.id}>
           <h2 className="producto-nombre">{producto.name}</h2>
           <p className="producto-descripcion">Descripción: {producto.description}</p>
           {producto.category && <p className="producto-categoria">Categoría: {producto.category}</p>}
-          {producto.tiendas && <p className="producto-tienda">Tienda: {producto.tiendas}</p>}
+          {producto.tienda && <p className="producto-tienda">Tienda: {producto.tienda}</p>}
           <div className="producto-precio">
             <span className="producto-precio-label">Precio:</span>
             <span className="producto-precio-valor">{producto.price}</span>
           </div>
-          {producto.images_urls && producto.images_urls.length > 0 && (
+          {producto.images_urls?.length > 0 && (
             <div className="imagen-container">
-              <button onClick={handlePreviousImage} aria-label="Previous Image">{"<"}</button>
               <img
                 src={producto.images_urls[currentImageIndex]}
                 alt={producto.name}
                 className="imagen"
               />
-              <button onClick={handleNextImage} aria-label="Next Image">{">"}</button>
             </div>
           )}
+          <button onClick={handleAddToQuotation} className="producto-enlace">
+            Agregar a cotizaciones
+          </button>
           <Link
             to={producto.url}
             target="_blank"

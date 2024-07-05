@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchProductos } from '../services/productoService';
 import ProductItem from './ProductItem';
 import '../css/teamplateds_productos.css';
-import './Hoja_producto.css';
+import '../css/Hoja_producto.css';
 
 const flattenSpecifications = (specs) => {
   const flatSpecs = {};

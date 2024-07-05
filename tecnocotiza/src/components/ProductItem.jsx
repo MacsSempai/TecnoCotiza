@@ -1,5 +1,5 @@
 import React from 'react';
-import './Hoja_producto.css';
+import '../css/Hoja_producto.css';
 
 const ProductItem = ({ product, onClick, isSelected }) => {
   return (

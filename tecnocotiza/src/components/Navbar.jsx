@@ -19,33 +19,6 @@ const DropdownMenu = ({ items }) => {
 function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(null);
-  const menuItems = {
-    hardware: [
-      { name: 'Placa madre' },
-      { name: 'Ram' },
-      { name: 'Almacenamiento' },
-      { name: 'Tarjetas de video' },
-    ],
-    perifericos: [
-      { name: 'Teclados' },
-      { name: 'Mouses' },
-      { name: 'Monitores' },
-      { name: 'Audífonos' },
-    ],
-    dispositivosPortatiles: [
-      { name: 'Laptop' },
-      { name: 'Smartphone' },
-      { name: 'Tablet' },
-      { name: 'Wearables' },
-    ],
-    electronicaConsumo: [
-      { name: 'All in one' },
-      { name: 'Consolas' },
-      { name: 'Televisores' },
-      { name: 'Audio' },
-    ],
-  };
 
   return (
     <nav className="navbar">
@@ -57,26 +30,29 @@ function Navbar() {
       </button>
       <div className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
         <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link to="/productlist" className="nav-link">Productos</Link>
-          </li>
           {isAuthenticated ? (
             <>
               <li className="nav-item">Bienvenido {user.nombreUsuario}</li>
               <li className="nav-item">
+                <Link to="/productlist" className="nav-link">Productos</Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/cotizaciones" className="nav-link">Cotizaciones</Link>
               </li>
               <li className="nav-item">
-                <Link to="/" onClick={logout} className="nav-link">Cerrar Sesión</Link>
+                <Link to="/" onClick={logout} className="nav-link nav-button">Cerrar Sesión</Link>
               </li>
             </>
           ) : (
             <>
               <li className="nav-item">
-                <Link to="/login" className="nav-link nav-button">Login</Link>
+                <Link to="/productlist" className="nav-link">Productos</Link>
               </li>
               <li className="nav-item">
-                <Link to="/register" className="nav-link nav-button">Register</Link>
+                <Link to="/cotizaciones" className="nav-link">cotizaciones</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/login" className="nav-link nav-button">Login</Link>
               </li>
             </>
           )}

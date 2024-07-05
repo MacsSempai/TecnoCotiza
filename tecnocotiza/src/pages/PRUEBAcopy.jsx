@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import "../css/ListaProductos.css"; // Import the CSS file
 
 const flattenSpecifications = (specs) => {
   const flatSpecs = {};
@@ -61,36 +60,6 @@ const ListaProductos = () => {
     fetchProductos();
   }, []);
 
-  const handleProductSelection = (productId) => {
-    setSelectedProducts((prevSelected) =>
-      prevSelected.includes(productId)
-        ? prevSelected.filter((id) => id !== productId)
-        : [...prevSelected, productId]
-    );
-  };
-
-  const handleAddToSelectedList = async () => {
-    if (selectedProducts.length === 0) {
-      console.warn("No products selected. Please select products to create a quotation.");
-      return;
-    }
-
-    if (user === null) {
-      navigate("/register");
-      return;
-    }
-
-    const dataToSend = { usuario_id: user.id, productos: selectedProducts };
-
-    try {
-      console.log("Guardando cotización");
-      const response = await axios.post("http://localhost:4000/api/cotizaciones", dataToSend);
-      console.log("Quotation created successfully:", response.data);
-      setSelectedProducts([]);
-    } catch (error) {
-      console.log("Error creating quotation:", error);
-    }
-  };
 
   const filteredProductos = selectedCategory
     ? productos.filter((producto) => producto.category === selectedCategory).sort((a, b) => a.price - b.price)
@@ -116,38 +85,24 @@ const ListaProductos = () => {
       </div>
 
       <div className="product-grid">
-        {filteredProductos.map((producto) => (
-          <div key={producto.id} className="product-card">
-            <h2 className="product-name">{producto.name}</h2>
-            <p className="product-category">Categoría: {producto.category}</p>
-            <p className="product-store">Tienda: {producto.tiendas}</p>
-            <div className="product-price">
-              <span className="price-label">Precio:</span>
-              <span className="price-value">{producto.oprice}</span>
-            </div>
-            {producto.imagess.length > 0 && (
-              <img src={producto.imagess[0]} alt={`Imagen de producto ${producto.name}`} className="product-image" />
-            )}
-            <button
-              className="select-button"
-              onClick={() => handleProductSelection(producto._id)}
-            >
-              {selectedProducts.includes(producto._id) ? "Excluir" : "Seleccionar"}
-            </button>
-            <Link to={`/productos/detallado/${producto.id}`} className="details-button">
-              Detalles
-            </Link>
+    {filteredProductos.map((producto) => (
+      <Link to={`/productos/detallado/${producto.id}`} key={producto.id} className="product-card-link">
+        <div className="product-card">
+          <h2 className="product-name">{producto.name}</h2>
+          <p className="product-category">Categoría: {producto.category}</p>
+          <p className="product-store">Tienda: {producto.tienda}</p>
+          <div className="product-price">
+            <span className="price-label">Precio:</span>
+            <span className="price-value">{producto.oprice}</span>
           </div>
-        ))}
-      </div>
+          {producto.imagess.length > 0 && (
+            <img src={producto.imagess[0]} alt={`Imagen de producto ${producto.name}`} className="product-image" />
+          )}
+        </div>
+      </Link>
+    ))}
+  </div>
 
-      <button
-        className="quotation-button"
-        disabled={selectedProducts.length === 0}
-        onClick={handleAddToSelectedList}
-      >
-        Agregar a cotizaciones ({selectedProducts.length})
-      </button>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import ProductItem from './ProductItem';
 import CategoriaFiltro from './CategoriaFiltro';
 import ProductDetalles from './ProductDetalles';
 import '../css/teamplateds_productos.css';
-import './Hoja_producto.css';
+import '../css/Hoja_producto.css';
 
 //----2do que se usa
 const flattenSpecifications = (specs) => {
