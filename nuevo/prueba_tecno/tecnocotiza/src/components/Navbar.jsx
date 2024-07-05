@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaHome, FaUser, FaCog, FaSearch } from 'react-icons/fa';
+import { FaBars, FaHome } from 'react-icons/fa';
 import '../css/Navbar.css';
 
 const DropdownMenu = ({ items }) => {
@@ -19,6 +19,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+  const isAuthenticated = true; // Cambiar según la lógica de autenticación
 
   const menuItems = {
     hardware: [
@@ -64,9 +65,6 @@ function Navbar() {
             <li className="nav-item">
               <Link to="/cotizaciones" className="nav-link">Cotizaciones</Link>
             </li>
-            <li className="nav-item">
-              <Link to="/login" className="nav-link nav-button">Login</Link>
-            </li>
           </ul>
         </div>
         <div className="navbar-end">
@@ -85,12 +83,6 @@ function Navbar() {
               ))}
             </div>
           )}
-          <div className="navbar-search-container">
-            <input type="text" placeholder="Buscar" className="navbar-search" />
-            <FaSearch className="search-icon" />
-          </div>
-          <button className="navbar-button"><FaUser /> Usuario</button>
-          <button className="navbar-button"><FaCog /> Configuración</button>
         </div>
       </div>
     </nav>

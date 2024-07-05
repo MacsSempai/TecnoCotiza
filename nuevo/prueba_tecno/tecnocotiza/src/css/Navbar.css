@@ -191,3 +191,13 @@
   transform: translateY(-50%);
   color: #F8F8FF;
 }
+
+/* Navbar.css */
+
+.navbar-search {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  color: #000; /* Cambia el color del texto a negro */
+}
