@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { fetchProductos } from '../services/productoService';
 import ProductItem from './ProductItem';
-import CategoriaFiltro from './CategoriaFiltro';
 import ProductDetalles from './ProductDetalles';
 import './teamplateds_productos.css';
 import './Hoja_producto.css';
 
-//----2do que se usa
+// ----2do que se usa
 const flattenSpecifications = (specs) => {
   const flatSpecs = {};
   const flatten = (obj, parentKey = '') => {
@@ -30,7 +29,7 @@ const parsePrice = (priceStr) => {
   return parseInt(priceStr.replace(/[$,.]+/g, ""), 10);
 }; 
 
-//----Primer uso---------
+// ----Primer uso---------
 const normalizeData = (data) => {  
   return data.map(product => ({
     ...product,
@@ -42,19 +41,15 @@ const normalizeData = (data) => {
   }));
 };
 
-
-const ProductList = () => {
+const Tarjeta_VideoProducto = () => {
   const [productos, setProductos] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [precioMinimo, setPrecioMinimo] = useState(0);
-  const [categoriaSelec, setCategoriaSelec] = useState('');
-
- 
 
   useEffect(() => {
     const cargarProductos = async () => {
       try {
-        const rawData = await fetchProductos(); //obtine los procutos get
+        const rawData = await fetchProductos(); // Obtiene los productos
         console.log("Raw data from fetchProductos:", rawData);
 
         const normalizedData = normalizeData(rawData);
@@ -75,32 +70,21 @@ const ProductList = () => {
   const handleBack = () => {
     setSelectedProduct(null);
   };
-  
+
   const handlePrecioMinimoChange = (event) => {
     setPrecioMinimo(parseInt(event.target.value, 10));
   };
 
-  const handleCategoriaSelec = (event) => {
-    setCategoriaSelec(event.target.value);
-  };
-
-
-  
+  const Categoria_Tarjeta_video= ['Partes y Piezas de PC'];
 
   const productosFiltrados = productos.filter(producto =>
     producto.price >= precioMinimo &&
-    (!categoriaSelec || producto.category === categoriaSelec) 
+    Categoria_Tarjeta_video.includes(producto.category)
   );
-
-  const categorias = [...new Set(productos.map(producto => producto.category))];
-
-  
 
   if (selectedProduct) {
     return <ProductDetalles product={selectedProduct} onBack={handleBack} />;
   }
-
-
 
   return (
     <div className="product-list">
@@ -117,14 +101,7 @@ const ProductList = () => {
           onChange={handlePrecioMinimoChange}
           className="range-input"
         />
-      </div> 
-      <CategoriaFiltro  
-        categorias={categorias}
-        categoriaSelec={categoriaSelec}
-        onChange={handleCategoriaSelec}
-        
-      />
-      
+      </div>
       {productosFiltrados.map((producto, index) => (
         <ProductItem key={producto._id || index} product={producto} onClick={handleProductClick} />
       ))}
@@ -132,4 +109,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default Tarjeta_VideoProducto;
