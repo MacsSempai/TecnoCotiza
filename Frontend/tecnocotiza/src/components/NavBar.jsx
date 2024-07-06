@@ -34,9 +34,6 @@ function Navbar() {
             <>
               <li className="nav-item">Bienvenido {user.nombreUsuario}</li>
               <li className="nav-item">
-                <Link to="/productlist" className="nav-link">Productos</Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/cotizaciones" className="nav-link">Cotizaciones</Link>
               </li>
               <li className="nav-item">
@@ -45,9 +42,6 @@ function Navbar() {
             </>
           ) : (
             <>
-              <li className="nav-item">
-                <Link to="/productlist" className="nav-link">Productos</Link>
-              </li>
               <li className="nav-item">
                 <Link to="/cotizaciones" className="nav-link">cotizaciones</Link>
               </li>

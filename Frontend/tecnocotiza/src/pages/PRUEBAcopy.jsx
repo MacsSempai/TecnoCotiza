@@ -36,11 +36,13 @@ const normalizeData = (data) =>
 
 const ListaProductos = () => {
   const [productos, setProductos] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [selectedStore, setSelectedStore] = useState("");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 15;
 
   const { user, haceCotizacion } = useAuth();
   const navigate = useNavigate();
@@ -62,26 +64,32 @@ const ListaProductos = () => {
     fetchProductos();
   }, []);
 
-  const handlePriceRangeChange = (event) => {
-    setSelectedPriceRange(event.target.value);
-  };
-
-  const handleStoreChange = (event) => {
-    setSelectedStore(event.target.value);
-  };
-
   const filteredProductos = productos.filter((producto) => {
     let matchCategory = !selectedCategory || producto.category === selectedCategory;
-    let matchPriceRange = !selectedPriceRange || (
-      selectedPriceRange === "0-50" && producto.price >= 0 && producto.price <= 50 ||
-      selectedPriceRange === "51-100" && producto.price >= 51 && producto.price <= 100 ||
-      selectedPriceRange === "101-200" && producto.price >= 101 && producto.price <= 200 ||
-      selectedPriceRange === "201-" && producto.price >= 201
-    );
-    let matchStore = !selectedStore || producto.store === selectedStore;
+    let matchPriceRange = producto.price >= minPrice && producto.price <= maxPrice;
+    let matchStore = !selectedStore || producto.tienda === selectedStore;
 
     return matchCategory && matchPriceRange && matchStore;
   }).sort((a, b) => a.price - b.price);
+
+  const totalPages = Math.ceil(filteredProductos.length / productsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const displayedProducts = filteredProductos.slice(
+    (currentPage - 1) * productsPerPage,
+    currentPage * productsPerPage
+  );
 
   return (
     <div className="container">
@@ -101,32 +109,44 @@ const ListaProductos = () => {
         </select>
 
         <select
-          value={selectedPriceRange}
-          onChange={handlePriceRangeChange}
-          className="filter-select"
-        >
-          <option value="">Rango de Precio</option>
-          <option value="0-50">$0 - $50</option>
-          <option value="51-100">$51 - $100</option>
-          <option value="101-200">$101 - $200</option>
-          <option value="201-">Más de $200</option>
-        </select>
-
-        <select
           value={selectedStore}
-          onChange={handleStoreChange}
+          onChange={(event) => setSelectedStore(event.target.value)}
           className="filter-select"
         >
           <option value="">Todas las Tiendas</option>
-          {/* Replace with actual stores data */}
-          <option value="Tienda1">Tienda 1</option>
-          <option value="Tienda2">Tienda 2</option>
-          <option value="Tienda3">Tienda 3</option>
+          <option value="cintegral">cintegral</option>
+          <option value="pcExpress">pcExpress</option>
+          <option value="notebookStore">notebookStore</option>
         </select>
+
+        <div className="price-range">
+          <label>Rango de Precio</label>
+          <input
+            type="range"
+            min="0"
+            max="10000000"
+            value={minPrice}
+            onChange={(e) => setMinPrice(Number(e.target.value))}
+            className="price-range-input"
+          />
+          <input
+            type="range"
+            min="0"
+            max="10000000"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
+            className="price-range-input"
+          />
+          <div>
+            <span>${minPrice}</span> - <span>${maxPrice}</span>
+          </div>
+        </div>
+
+
       </div>
 
       <div className="product-grid">
-        {filteredProductos.map((producto) => (
+        {displayedProducts.map((producto) => (
           <Link to={`/productos/detallado/${producto.id}`} key={producto.id} className="product-card-link">
             <div className="product-card">
               <h2 className="product-name">{producto.name}</h2>
@@ -142,6 +162,11 @@ const ListaProductos = () => {
             </div>
           </Link>
         ))}
+      </div>
+      
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>Anterior</button>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>Siguiente</button>
       </div>
     </div>
   );

@@ -16,10 +16,10 @@ const Footer=()=>{
                 <div className="footer-links">
                     
                     <ul className="list">Navegar
-                        <li href="/hatware"><a>hatware</a></li>
-                        <li href="/perifericos"><a>perifericos</a></li>
-                        <li href="/dispositivos-portatiles"><a>dispisitivos portatiles</a></li>
-                        <li href="/electronica-consumo"><a>electronica consumo</a></li>
+                        <li href="/hatware"><a>Hardware</a></li>
+                        <li href="/perifericos"><a>Perifericos</a></li>
+                        <li href="/dispositivos-portatiles"><a>Dispositivos Portatiles</a></li>
+                        <li href="/electronica-consumo"><a>Electronica de Consumo</a></li>
                     </ul>
                 </div>
                 <p>© 2024 TecnoCotiza. Todos los derechos reservados.</p>

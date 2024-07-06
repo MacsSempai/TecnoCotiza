@@ -7,7 +7,7 @@ export default function Perfil_usuario() {
       <section className="perfil-usuario">
         <div className="Tarjeta_perfil">
           <div className="perfil_imagesn">
-            <img src="src/components/imagess/monitor.jpg" alt="Avatar" className="avatar" />
+            <img src="src/components/images/monitor.jpg" alt="Avatar" className="avatar" />
             <h5>Nombre usuario</h5>
             <p>Web Designer</p>
             <i className="icono"></i>

@@ -2,11 +2,11 @@
 
 import React from 'react';
 
-const TablaIzquierda = ({ imagess }) => {
+const TablaIzquierda = ({ images }) => {
   return (
     <div className="tabla_izquierda">
-      {imagess.map((img, idx) => (
-        <img key={idx} src={img.startsWith('//') ? 'https:' + img : img} alt={`Imagen de producto ${idx + 1}`} />
+      {images.map((img, idx) => (
+        <img key={idx} src={img.startsWith('//') ? 'https:' + img : img} alt={`imagesn de producto ${idx + 1}`} />
       ))}
     </div>
   );
@@ -67,7 +67,7 @@ const ProductDetalles = ({ product, onBack }) => {
     <div className="container">
       <div className="body">
         <TablaMedia product={product} />
-        <TablaIzquierda imagess={product.imagess} />
+        <TablaIzquierda images={product.images} />
         <Derecha url={product.url} onBack={onBack} />
       </div>
     </div>

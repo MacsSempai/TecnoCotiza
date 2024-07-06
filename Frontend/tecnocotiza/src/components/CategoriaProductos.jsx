@@ -30,18 +30,18 @@ const normalizeData = (data) => {
   return data.map(product => ({
     ...product,
     price: parsePrice(product.price),
-    imagess: product.imagess || product.images_urls || [],
+    images: product.images || product.images_urls || [],
     description: product.description || "Descripción no disponible",
     category: product.category || "Categoría no disponible",
     specifications: flattenSpecifications(product.specifications || {})
   }));
 };
 
-const TablaIzquierda = ({ imagess }) => {
+const TablaIzquierda = ({ images }) => {
   return (
     <div className="tabla_izquierda">
-      {imagess.map((img, idx) => (
-        <img key={idx} src={img.startsWith('//') ? 'https:' + img : img} alt={`Imagen de producto ${idx + 1}`} />
+      {images.map((img, idx) => (
+        <img key={idx} src={img.startsWith('//') ? 'https:' + img : img} alt={`imagesn de producto ${idx + 1}`} />
       ))}
     </div>
   );
@@ -51,8 +51,8 @@ const TablaMedia = ({ product }) => {
   const { description, price, category, specifications } = product;
 
   return (
-    <div className="tabla_media text-black">
-      <h2>{product.nombreProducto}</h2>
+    <div className="tabla_media">
+      <h2>{product.name}</h2>
       <div>
         <h2>Características</h2>
         <table>
@@ -102,14 +102,14 @@ const ProductDetails = ({ product, onBack }) => {
     <div className="container">
       <div className="body">
         <TablaMedia product={product} />
-        <TablaIzquierda imagess={product.imagess} />
+        <TablaIzquierda images={product.images} />
         <Derecha url={product.url} onBack={onBack} />
       </div>
     </div>
   );
 };
 
-const ProductCategory = () => {
+const CategoriaProductos = ({ categoria }) => {
   const [productos, setProductos] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [precioMinimo, setPrecioMinimo] = useState(0);
@@ -142,7 +142,7 @@ const ProductCategory = () => {
     setPrecioMinimo(parseInt(event.target.value, 10));
   };
 
-  const productosFiltrados = productos.filter(producto => producto.price >= precioMinimo);
+  const productosFiltrados = productos.filter(producto => producto.price >= precioMinimo && producto.category === categoria);
 
   if (selectedProduct) {
     return <ProductDetails product={selectedProduct} onBack={handleBack} />;
@@ -150,7 +150,7 @@ const ProductCategory = () => {
 
   return (
     <div className="product-list">
-      <h1>Productos</h1>
+      <h1>Productos en {categoria}</h1>
       <input
         type="number"
         placeholder="Precio mínimo"
@@ -164,4 +164,4 @@ const ProductCategory = () => {
   );
 };
 
-export default ProductCategory;
+export default CategoriaProductos;

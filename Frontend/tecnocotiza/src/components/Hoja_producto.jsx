@@ -4,7 +4,7 @@ import React from 'react';
 const TablaIzquierda=()=> {
   return (
     <div className="tabla_izquierda">
-      <img src="imagess/monitor.jpg" alt="Imagen del producto" />
+      <img src="images/monitor.jpg" alt="imagesn del producto" />
     </div>
   );
 }

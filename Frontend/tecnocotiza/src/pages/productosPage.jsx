@@ -30,7 +30,7 @@ const normalizeData = (data) => {
   return data.map(product => ({
     ...product,
     price: parsePrice(product.price),
-    imagess: product.imagess || product.images_urls || [],
+    images: product.images || product.images_urls || [],
     description: product.description || "Descripción no disponible",
     category: product.category || "Categoría no disponible",
     specifications: flattenSpecifications(product.specifications || {})

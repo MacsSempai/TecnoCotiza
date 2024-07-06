@@ -11,11 +11,11 @@ const ProductItem = ({ product, onClick, isSelected }) => {
       <p>{product.description}</p>
       <p>Precio: ${product.price.toLocaleString()}</p>
       <p>Categoría: {product.category}</p>
-      {product.imagess.length > 0 && ( 
+      {product.images.length > 0 && ( 
         <img
-          src={product.imagess[0].startsWith('//') ? 'https:' + product.imagess[0] : product.imagess[0]}
-          alt={`Imagen de producto ${product.name}`}
-          className="product-imagess"
+          src={product.images[0].startsWith('//') ? 'https:' + product.images[0] : product.images[0]}
+          alt={`imagesn de producto ${product.name}`}
+          className="product-images"
         />
       )}
     </div>
